@@ -1,0 +1,2 @@
+Tvym ukolem je opravit funkce v t_msg_letters.py tak, aby delali to co maji tim se ti odhali tajna zprava.
+Nekoukej se, co je za kod v t_msg_gen.py, jinak bys mohl prijit o zabavu.

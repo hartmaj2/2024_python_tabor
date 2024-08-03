@@ -1,0 +1,56 @@
+TEMA: objekty a pygame
+todo:
+    objekty
+    jak funguji hry
+
+1. rozcvicka s vice zelvami
+
+2. zaklady objektu - proc jsou dulezite, pustit video:
+    https://www.youtube.com/watch?v=ZDa-Z5JzLYM&ab_channel=CoreySchafer
+
+3. jak funguji hry
+    - jak funguje video (snimky, FPS)
+    - rozdil mezi hrou a filmem - input
+    - proc nemuzeme pouzit metodu input() ve hre? (blokujici, neblokujici)
+
+4. minimalni program a eventy (challenge pro vsechny)
+    - ukazu, ze program registruje ruzne eventy
+    - pomoci nich muzeme reagovat na vstup hrace
+
+5. kresleni na obrazovku - surfaces
+    (a) display surface - obrazovka
+    (b) regular surface - image, shape, text
+    - nakreslit podobenstvi s plakatem a obrazky
+    - 1. vytvorit novy surface - pygame.Surface(velikost)
+    - 2. rict screenu, ze ho chceme nekam nakreslit blit(koho,kam data levy horni okraj)
+        - pomucka: blit jako blitka -> vyblijeme postavicku na obrazovku
+        - pomucka: Y je sipka dolu, takze zvetsovani jde dolu
+    - 3. rict pygame, at updatuje display
+
+6. kresleni vlastnich obrazku
+    - moznost: stahnout si z gitu, jak nainstalovat git na windows
+    - pygame.image.load()
+
+7. pohyb - vymyslet, jak bychom mohli hybat postavou (neco se musi menit, co?)
+    - zkusit na ruznych systemch - windows, mac, spustenych vice aplikaci
+        -> potrebujeme casovac
+    - zatim nebudeme resit, jak casovac ziskat, cvicime pridani vice postavo
+    - zkusime ovladat pomoci inputu
+
+8. pridame clock
+
+9. muzeme se pobavit o convert() a convert_alpha() pro zrychleni programu
+
+10. rectangle
+    - proc?
+        - 1. lepsi ovladani polohy postavicky
+        - 2. detekce kolizi
+    - rectangle neni nic co vykreslujeme, funguje na pozadi
+    - vytvorit:
+        - 1. poprosime surface at nam rekne, jak je velky jeho rectangle (get_rect)
+            - predame parametr vuci jake casti zadavame souradnice: https://www.pygame.org/docs/ref/rect.html#:~:text=The%20Rect%20object%20has%20several%20virtual%20attributes%20which%20can%20be%20used%20to%20move%20and%20align%20the%20Rect%3A
+        - 2. pri blitovani pak rekneme screenu, ze chceme hrace tam, kde je rectangle
+        - 3. ted uz staci jen hybat rectem a hrac bude vzdy skakat na nej
+
+11. kolize - checkujeme, zda koliduji recty odpovidajicich surfacu
+        - mozna kolize s mysi (udelat si tridu pro Character, hodi se type hints pro seznamy)

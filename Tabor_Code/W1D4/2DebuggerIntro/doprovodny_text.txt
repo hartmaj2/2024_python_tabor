@@ -1,0 +1,3 @@
+Nasli jsme kod, ve kterem jsou ale chyby
+Co ma kod delat (zamysleme se nad tim chvilku)
+Pote pomoci debuggeru budeme zjistovat, co je tam za chyby

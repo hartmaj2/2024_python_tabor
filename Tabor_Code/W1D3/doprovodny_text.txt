@@ -1,0 +1,48 @@
+1. Nejprve se naucime neco o relativnich a absolutnich cestach
+    - absolutni cesty: 
+        - jak vypadaji: Windows -> C:\  , Max/Linux -> /home/...
+        - co delaji: vzdy ukazuje na stejne misto nehlede na adresar, ze ktereho kod spoustime
+    - relativni cesty:
+        - zacinaji jmenem: Images/image.jpg
+        - podle toho, odkud spoustime program se vyhleda cesta vzhledem k naucime
+        - muzeme pouzivat . a ..
+    - jaky je jejich rozdil, vyhody a nevyhody
+
+Cviceni rozdily:
+W1D3/image.jpg VS /W1D3/image.jpg
+../kocicky.jpg
+
+Knihovna cv2 neni v Pythonu od zakladu. Budeme si ji muset stahnout.
+Pro to se ale naucime nejprve vytvaret si virtualni prostredi, do ktereho si pak
+muzeme instalovat co chceme. Je to takove nase piskoviste. Instalaci neponicime a nezaneradime
+nic jineho, nez to prostredi.
+
+```
+python -m venv env
+source env/bin/activate
+deactivate 
+```
+
+Naimportujeme si cv2, budeme muset nejprve nainstalovat knihovnu:
+`pip install opencv-python`
+
+Nez zacneme pracovat s obrazky, bude se nam hodit jeste funkce 
+`os.getcwd()` # rekne nam, v jakem adresari se nachazi nas program
+
+SAMOTNA PRACE S OBRAZKY
+1. obrazek musime nacist `cv2.imread(cesta)`
+2. obrazek bychom pak radi vytiskli `cv2.imshow(popisek,promenna_s_obrazkem)
+3. obrazek muze mizet -> musime pouzit `cv2.waitKey(0)` nebo `cv2.waitKey(cas)`
+
+Hezke funkce: resize, rotate
+
+
+
+
+
+
+K cemu je dobre tohle delat kodem -> automatizace 
+    - mame 10 obrazku, ty nam nejaky lump pootacel a navic je cheme cernobile
+    - najdeme je ve slozce pootacene
+    - musime udelat program, ktery je vsechny pootaci a zcernobili a pak ulozi do nove slozky
+

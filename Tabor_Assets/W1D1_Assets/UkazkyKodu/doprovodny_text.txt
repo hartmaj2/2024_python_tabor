@@ -1,0 +1,12 @@
+1. Program bezi od prvniho radku k poslednimu, poradi je tedy dulezite a muze zmenit smysl kodu
+    - jaky je rozdil mezi dvemi programy order_matters?
+2. Komentare jsou uzitecne, pokud si chceme ke kodu pripsat nejakou poznamku, treba popsat co kod dela nebo jak je co zamysleno
+    - ukazat comments programy, proc potrebujeme komentare znacit symbolem a nemuzeme je psat jen tak?
+3. Promenne 
+    - boxiky, do kterych muzeme ukladat informace 
+    - jejich obsah se muze menit 
+4. Datove typy 
+    - python diky nim vi, jake operace muze s danou promennou provadet 
+    - vedi, jak funguji datove typy v jinych jazycich?
+    - proc je datovy typ dulezite rozlisovat ukazat na priklade data_types_operators. Stejny prikaz muze znamenat ruzne veci. Co se asi stane?
+    - existuji dva zakladni typy pro cisla, jake? float a int, je to dulezity rozdil (ukazat data_types_numbers)
