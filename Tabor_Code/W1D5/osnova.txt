@@ -54,3 +54,6 @@ todo:
 
 11. kolize - checkujeme, zda koliduji recty odpovidajicich surfacu
         - mozna kolize s mysi (udelat si tridu pro Character, hodi se type hints pro seznamy)
+
+12. ovladani pomoci klaves - checkujeme hodnoty v seznamu keys = pygame.key.get_pressed()
+    - jednotlive pozice jsou preddefinovane napr. pygame.K_UP
