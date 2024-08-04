@@ -44,7 +44,7 @@ if picture == 'multi_uhelnik':
     setheading(270) # Nastav pocatecni smer
 
 if picture == 'maze':
-    bgpic("pics/turtle_maze.png")  # Nastav obrazek na pozadi
+    bgpic("W1D1_Solutions/turtle_maze.png")  # Nastav obrazek na pozadi
     teleport(-30, 215)  # Nastav pocatecni souradnice
     setheading(270) # Nastav pocatecni smer
 
