@@ -9,12 +9,15 @@ turtle.shape('turtle')
 turtle.color('green')
 
 # TODO: VYMEN KOD NIZE ZA SVUJ
-for i in range(100):    
-    turtle.forward(20)
-    turtle.left(20)
-    turtle.forward(20)
-    turtle.right(20)
+def napis_L():
+    turtle.setheading(270)
+    turtle.forward(100)
+    turtle.left(90)
+    turtle.forward(50)
 
+napis_L()
+turtle.teleport(-200,100)
+napis_L()
 
 ''' Pro pohyb pouzij funkce ''' 
 #  turtle.forward(int) 

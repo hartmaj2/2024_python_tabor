@@ -3,7 +3,7 @@
 2. Komentare jsou uzitecne, pokud si chceme ke kodu pripsat nejakou poznamku, treba popsat co kod dela nebo jak je co zamysleno
     - ukazat comments programy, proc potrebujeme komentare znacit symbolem a nemuzeme je psat jen tak?
 3. Promenne 
-    - boxiky, do kterych muzeme ukladat informace 
+    - poJMENOvana mista v pameti, do kterych muzeme ukladat informace 
     - jejich obsah se muze menit 
 4. Datove typy 
     - python diky nim vi, jake operace muze s danou promennou provadet 

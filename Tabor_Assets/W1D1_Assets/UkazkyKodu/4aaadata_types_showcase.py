@@ -1,7 +1,10 @@
 # Integer
-a = 10
-b = 14
-c = a + b 
+a = 14
+b = 10
+c = a + b
+#c = a / b
+#c = a // b
+#c = a % b
 print(c)
 
 # Double

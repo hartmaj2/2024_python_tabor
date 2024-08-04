@@ -1,5 +1,4 @@
 # Jakeho datoveho typu jsou nasledujici promenne
-
 prom1 = 42
 
 prom2 = 3.14
@@ -19,6 +18,4 @@ prom8 = 10 // 3
 prom9 = ["shield","sword","armor"]
 
 prom10 = ["a",1,None,3.43,[]]
-
-breakpoint()
 
