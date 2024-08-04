@@ -1,3 +1,5 @@
+# TADY NIC NEMEN, TENTO PROGRAM AKORAT SPOUSTEJ
+
 import turtle
 
 import t_msg_gen as turtle_message_gen

@@ -1,3 +1,6 @@
+# TODO: tady musis opravit casti kodu, ktere jsou spatne
+# POZOR: tento kod jsou jen funkce, ktere spustis skrz t_msg_writer.py
+
 import turtle
 
 def draw_A(x, y, size):

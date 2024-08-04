@@ -1,3 +1,5 @@
+# SEM NEKOUKAT! BRRRRR! GRRRR!
+
 from t_msg_letters import *
 
 def draw_a_eq_b(x,y,a,b,size):
