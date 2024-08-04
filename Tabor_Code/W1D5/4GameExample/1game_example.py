@@ -1,4 +1,5 @@
 import pygame
+import random
 
 pygame.init() 
 
@@ -8,13 +9,19 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock() # 1. PRIDAME CLOCK OBJEKT, KTERY MA FUNKCI, KTEROU POTREBUJEME
 font = pygame.font.Font("W1D5/font/Pixeltype.ttf",50)
 
-background = pygame.image.load("W1D5/graphics/Sky.png")
-ground = pygame.image.load("W1D5/graphics/ground.png")
+background = pygame.transform.grayscale(pygame.image.load("W1D5/graphics/Sky.png"))
+ground = pygame.transform.grayscale(pygame.image.load("W1D5/graphics/ground.png"))
 
-SNAIL_SPEED = 10
-JUMP_POWER = 10
+ENEMY_BASE_SPEED = 10
+JUMP_POWER = 12
 GRAVITY = 0.5
-GROUND_LEVEL = 300
+GROUND_HEIGHT = 300
+
+LEVEL_SCORES = [0,50,100,200,400]
+
+start_time = 0
+score = 0
+level = 1
 
 class Speed:
     def __init__(self,x,y):
@@ -48,7 +55,7 @@ class Button(Character):
         pygame.draw.rect(screen,self.color,background_rect)
         pygame.draw.rect(screen,"Black",background_rect,2)
         super().draw()
-    
+
     def mouse_over(self):
         return self.rect.collidepoint(pygame.mouse.get_pos())
 
@@ -62,45 +69,78 @@ class MovingCharacter(Character):
         self.rect.y += self.speed.y
     
 class Player(MovingCharacter):
+
+    ducking_x_pos = 120
+    standing_x_pos = 100
+    player_standing_height = 0
+
     def __init__(self, surface : pygame.Surface, speed : list[int,int]):
         super().__init__(surface,speed)
+        Player.player_standing_height = self.rect.height
 
     def update(self):
         self.speed.y += GRAVITY
         super().update()
-        if player.rect.bottom > GROUND_LEVEL:
-            player.rect.bottom = GROUND_LEVEL
+        if player.rect.bottom > GROUND_HEIGHT:
+            player.rect.bottom = GROUND_HEIGHT
             player.speed.y = 0
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_s]:
+            self.try_duck()
+        else:
+            self.try_set_standing()
     
+    def set_ducking(self):
+        player.surf = pygame.image.load("W1D5/trexgraphics/trex_duck1.png")
+        player.rect = player.surf.get_rect()
+        player.rect.midbottom = (Player.ducking_x_pos,GROUND_HEIGHT)
+    
+    def try_set_standing(self):
+        # prev_y = player.rect.centery
+        if player.rect.bottom >= GROUND_HEIGHT:
+            player.surf = pygame.image.load("W1D5/trexgraphics/trex1.png")
+            player.rect = player.surf.get_rect()
+            player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
+
     def try_jump(self):
-        if player.rect.bottom >= GROUND_LEVEL:
+        if player.rect.bottom >= GROUND_HEIGHT:
             player.speed.y = -JUMP_POWER
+    
+    def try_duck(self):
+        if player.rect.bottom >= GROUND_HEIGHT:
+            self.set_ducking()
 
 class StateRunning:
 
+    score_text = Text(f"Score: {score}")
+    score_text.rect.topleft = (10,10)
+
+    level_text = Text(f"Level: {level}")
+    level_text.rect.topright = (WIDTH-10,10)
+
     def update(self):
-        global game_state, score
+        global game_state, score, level
+        print(f"Level: {level}")
+        print(f"Score: {score}")
         score = (pygame.time.get_ticks() - start_time) // 100
-        score_text.update_text("Score: " + str(score))
+        StateRunning.score_text.update_text("Score: " + str(score))
+        level = get_level()
+        StateRunning.level_text.update_text("Level: " + str(level))
+        spawner.update()
         player.update()
-        for fly in flys:
-            fly.update()
-            if fly.rect.left > WIDTH:
-                flys.remove(fly)
-        snail.update()
-        if snail.rect.right < 0:
-            snail.rect.left = WIDTH
-        if snail.rect.colliderect(player.rect):
-            game_state = StateRestartMenu()
+        for cactus in enemies:
+            cactus.update()
+            if cactus.rect.right < 0:
+                enemies.remove(cactus)
 
     def draw(self):
         screen.blit(background,(0,0))
-        screen.blit(ground,(0,GROUND_LEVEL))
-        for fly in flys:
-            fly.draw()
+        screen.blit(ground,(0,GROUND_HEIGHT))
+        for cactus in enemies:
+            cactus.draw()
         player.draw()
-        snail.draw()
-        score_text.draw()
+        StateRunning.score_text.draw()
+        StateRunning.level_text.draw()
         pygame.display.flip() 
     
     def check_events(self):
@@ -108,60 +148,52 @@ class StateRunning:
                 if event.type == pygame.QUIT: 
                     pygame.quit()
                     exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if player.rect.collidepoint(pygame.mouse.get_pos()):
-                        spawn_fly(player.rect.center)
                 if event.type == pygame.KEYDOWN:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_w]:
                         player.try_jump()
 
     def reset(self):
-        global start_time
-        snail.rect.left = WIDTH
+        global start_time, enemies, level, score
+        level = 1
+        score = 0
+        enemies = []
         start_time = pygame.time.get_ticks()
+                       
+class StateMenu:
 
-class StateStartMenu:
+    dino_icon = Character(pygame.image.load("W1D5/trexgraphics/trex1.png"))
+    dino_icon.surf = pygame.transform.scale_by(dino_icon.surf,1.5)
+    dino_icon.rect = dino_icon.surf.get_rect()
+    dino_icon.rect.center = (WIDTH/5,HEIGHT/2)
 
-    start_game_button = Button("Start Game","Grey")
-    start_game_button.rect.center = (WIDTH/2,HEIGHT/2)
-
-    def update(self):
-        pass
-
-    def draw(self):
-        screen.blit(background,(0,0))
-        screen.blit(ground,(0,GROUND_LEVEL))
-        StateStartMenu.start_game_button.draw()
-        pygame.display.flip() 
-    
-    def check_events(self):
-        global game_state
-        for event in pygame.event.get(): # pygame.event.get() vrati seznam eventu
-                if event.type == pygame.QUIT: 
-                    pygame.quit()
-                    exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if StateStartMenu.start_game_button.mouse_over():
-                        game_state = StateRunning()
-                        game_state.reset()
-                        
-class StateRestartMenu:
-
-    restart_game_button = Button("Restart","Grey")
-    restart_game_button.rect.midbottom = (WIDTH/2,HEIGHT/2-Button.border_offset-10)
+    dino_icon2 = Character(pygame.image.load("W1D5/trexgraphics/trex1.png"))
+    dino_icon2.surf = pygame.transform.scale_by(dino_icon2.surf,1.5)
+    dino_icon2.surf = pygame.transform.flip(dino_icon2.surf,True,False)
+    dino_icon2.rect = dino_icon2.surf.get_rect()
+    dino_icon2.rect.center = (WIDTH*4/5,HEIGHT/2)
 
     quit_game_button = Button("Quit","Grey")
     quit_game_button.rect.midtop = (WIDTH/2,HEIGHT/2+Button.border_offset+10)
 
+    def __init__(self,start_text,top_text):
+        self.start_game_button = Button(start_text,"Grey")
+        self.start_game_button.rect.midbottom = (WIDTH/2,HEIGHT/2-Button.border_offset-10)
+
+        self.intro_text = Text(top_text)
+        self.intro_text.rect.midtop = (WIDTH/2,40)
+
     def update(self):
         pass
 
     def draw(self):
         screen.blit(background,(0,0))
-        screen.blit(ground,(0,GROUND_LEVEL))
-        StateRestartMenu.restart_game_button.draw()
-        StateRestartMenu.quit_game_button.draw()
+        screen.blit(ground,(0,GROUND_HEIGHT))
+        self.start_game_button.draw()
+        StateMenu.quit_game_button.draw()
+        StateMenu.dino_icon.draw()
+        StateMenu.dino_icon2.draw()
+        self.intro_text.draw()
         pygame.display.flip() 
     
     def check_events(self):
@@ -171,32 +203,82 @@ class StateRestartMenu:
                     pygame.quit()
                     exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if StateRestartMenu.restart_game_button.mouse_over():
+                    if self.start_game_button.mouse_over():
                         game_state = StateRunning()
                         game_state.reset()
-                    if StateRestartMenu.quit_game_button.mouse_over():
+                    if StateMenu.quit_game_button.mouse_over():
                         pygame.quit()
                         exit()
 
+class Enemy(MovingCharacter):
+
+    def __init__(self,surface:pygame.Surface,speed :list[int,int]):
+        super().__init__(surface,speed)
+    
+    def update(self):
+        global game_state
+        super().update()
+        if self.rect.colliderect(player.rect):
+            game_state = StateMenu("Restart",f"You died with {score} points.")
+
+class EnemySpawner:
+
+    level_base_speed = [9,10,12,14,18]
+    level_spawn_delay = [1500,1400,1300,1200,1200]
+    spawn_diff_ratio = 1/2
+
+    def __init__(self,image_path):
+        self.image_path = image_path
+        self.schedule_next_spawn()
+    
+    def update(self):
+        if pygame.time.get_ticks() >= self.next_spawn:
+            self.schedule_next_spawn()
+            self.spawn_enemy()
+    
+    def create_cactus(self):
+        global level
+        cactus = Enemy(pygame.image.load("W1D5/trexgraphics/cactus1.png"),(-EnemySpawner.level_base_speed[level-1],0))
+        cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
+        return cactus
+    
+    def create_flying(self,speed_offset):
+        global level
+        flying = Enemy(pygame.image.load("W1D5/trexgraphics/flying2.png"),(-EnemySpawner.level_base_speed[level-1]+speed_offset,0))
+        flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
+        return flying
+
+    def spawn_enemy(self):
+        global enemies
+        percentage = random.randint(0,100)
+        
+        if percentage < 30:
+            speed_offset = random.randint(-2,0)
+            enemy = self.create_flying(speed_offset)
+        else:
+            enemy = self.create_cactus()
+        enemies.append(enemy)
+    
+    def schedule_next_spawn(self):
+        spawn_diff = int(EnemySpawner.spawn_diff_ratio * EnemySpawner.level_spawn_delay[level-1])
+        self.next_spawn = pygame.time.get_ticks() + EnemySpawner.level_spawn_delay[level-1] + random.randint(-spawn_diff,spawn_diff)
+        
+
 player = Player(pygame.image.load("W1D5/trexgraphics/trex1.png"),(0,0))
-player.rect.midbottom = (100,300)
+player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
-score_text = Text("Score: 0")
-score_text.rect.midtop = (WIDTH/2,10)
+enemies : list[Enemy] = [] 
 
-flys : list[MovingCharacter] = [] 
+spawner = EnemySpawner("W1D5/trexgraphics/cactus1.png")
 
-snail = MovingCharacter(pygame.image.load("W1D5/trexgraphics/cactus1.png"),(-SNAIL_SPEED,0))
-snail.rect.bottomleft = (WIDTH, GROUND_LEVEL)
+game_state = StateMenu("Start","Retro-Rex")
 
-game_state = StateStartMenu()
-start_time = 0
-score = 0
 
-def spawn_fly(position):
-    fly = MovingCharacter(pygame.image.load("W1D5/graphics/Fly/Fly1.png"),(5,0))
-    fly.rect.center = position
-    flys.append(fly)
+def get_level():
+    i = 0
+    while i < len(LEVEL_SCORES) and LEVEL_SCORES[i] <= score:
+        i += 1
+    return i
 
 while True:
     
@@ -204,5 +286,5 @@ while True:
     game_state.update()
     game_state.draw()
     
-    clock.tick(60) # ZADRZDI PROGRAM NA DOBU, KTERA ODPOVIDA 60 FPS (cca 16.6 ms)
+    clock.tick(60)
     
