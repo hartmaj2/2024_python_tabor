@@ -76,6 +76,7 @@ class Player(MovingCharacter):
 
     def __init__(self, surface : pygame.Surface, speed : list[int,int]):
         super().__init__(surface,speed)
+        self.ducking = False
         Player.player_standing_height = self.rect.height
 
     def update(self):
@@ -91,19 +92,20 @@ class Player(MovingCharacter):
             self.try_set_standing()
     
     def set_ducking(self):
+        self.ducking = True
         player.surf = pygame.image.load("W1D5/trexgraphics/trex_duck1.png")
         player.rect = player.surf.get_rect()
         player.rect.midbottom = (Player.ducking_x_pos,GROUND_HEIGHT)
     
     def try_set_standing(self):
-        # prev_y = player.rect.centery
         if player.rect.bottom >= GROUND_HEIGHT:
+            self.ducking = False
             player.surf = pygame.image.load("W1D5/trexgraphics/trex1.png")
             player.rect = player.surf.get_rect()
             player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
     def try_jump(self):
-        if player.rect.bottom >= GROUND_HEIGHT:
+        if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
             player.speed.y = -JUMP_POWER
     
     def try_duck(self):
@@ -120,8 +122,6 @@ class StateRunning:
 
     def update(self):
         global game_state, score, level
-        print(f"Level: {level}")
-        print(f"Score: {score}")
         score = (pygame.time.get_ticks() - start_time) // 100
         StateRunning.score_text.update_text("Score: " + str(score))
         level = get_level()
@@ -225,7 +225,7 @@ class EnemySpawner:
 
     level_base_speed = [9,10,12,14,18]
     level_spawn_delay = [1500,1400,1300,1200,1200]
-    spawn_diff_ratio = 1/2
+    spawn_diff_ratio = 1/3
 
     def __init__(self,image_path):
         self.image_path = image_path
