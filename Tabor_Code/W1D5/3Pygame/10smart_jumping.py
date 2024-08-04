@@ -11,12 +11,14 @@ player_surf.fill("Red")
 player_rect = player_surf.get_rect() 
 player_rect.center = (150,150)
 
-# TODO: Naimplementuj hloupou gravitaci: kazdy moment hraci uber trochu z jeho pozice, 
+# TODO: Naimplementuj chytrou gravitaci: budeme potrebovat promennou pro hracovu rychlost letu
+# pojmenuj ji treba speed_y
 
-# TODO: naimplementuj skok tim, ze hrace teleportujes o neco vys
-# HINT: budeme chtit registrovat event aby se teleportoval jen jednou
+# TODO: skok naimplementujeme tak, ze nastavime hracovu speed_y na nejakou pevnou hodnotu (treba 5) vzdy, kdyz stiskneme sipku nahoru
 
-# TODO: naimplementuj kolizi se zemi tim, ze prestanes hrace posouvat dolu, pokud uz je moc nizko (na zemi)
+# TODO: gravitace v kazdem tiknuti cyklu ukousne pevne danou hodnotu z jeho speed_y
+
+# TODO: ted uz staci jen vzdy menit y pozici hrace o speed_y
 
 while True:
     for event in pygame.event.get():
@@ -31,4 +33,4 @@ while True:
     clock.tick(60)
 
 
-    # BONUS TODO: naimplementuj, aby hrac nemohl vyjet do boku mimo obrazovku
+    # BONUS TODO: naimplementuj, aby hrac nemohl skakat ve vzduchu
