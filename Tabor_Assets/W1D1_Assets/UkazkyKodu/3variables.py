@@ -5,4 +5,4 @@ penize = penize + 10
 print("Mas",penize,"penez")
 print("Koupil sis svitek s kouzlem")
 penize = penize - 5
-print("Mas",penize,"penez")
+print("Mas " + penize + " penez")
