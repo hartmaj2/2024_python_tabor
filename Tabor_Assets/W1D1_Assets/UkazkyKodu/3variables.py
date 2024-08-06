@@ -1,8 +1,20 @@
+
 penize = 0
-print("Zacinas hru s",penize,"penezi")
-print("Porazil jsi skreta a dostanez za to domenu.")
-penize = penize + 10
+
+for i in range(4):
+    print("kakadu")
+    print("je hustej")
+
+
+    
 print("Mas",penize,"penez")
 print("Koupil sis svitek s kouzlem")
 penize = penize - 5
-print("Mas " + penize + " penez")
+print("Mas " + str(penize) + " penez")
+
+if penize == 5:
+    print("Tak to jsi fakt chudak chudej")
+
+
+    
+print("Konec")

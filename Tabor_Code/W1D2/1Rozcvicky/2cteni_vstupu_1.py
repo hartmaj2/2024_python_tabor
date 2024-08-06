@@ -3,4 +3,4 @@
 # druhe slovo bude superschopnost
 # Program vytiskne na vystup: "Tvuj hrdina se jmenuje ... a jeho superschopnost je ..."
 
-# HINT: bude se ti hodit, input(), print() a skladani retezcu
+# HINT: skladani retezcu napr. "ahoj" + "svete"

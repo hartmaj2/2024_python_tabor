@@ -1,0 +1,45 @@
+TEMA: datove typy, seznamy, while cykly a retezce + sifrovani
+
+todo:
+    zopakovat - promenna, if/elif/else, for loop, funkce
+    rozcvicka 
+    
+0. opakovani - HADANKY
+    - promenna -> jak se vytvori? k cemu je?
+    - if/else/if -> k cemu to je?
+    - for loop -> k cemu to je?
+    - funkce -> k cemu to je? definice VS zavolani funkce?
+
+0.1. jak jsem si predstavoval funkce na domecky - zlomyslny zakaznik
+
+1. rozcvicka - program: in <- vaha,vek ; out -> vaha na nejake planete/mesici/slunci, kolik jsi stary dnu (poradte si)
+                - vygooglit potrebne informace nejak ci spocitat
+        (staci jen ukazat jake se daji delat s cisly operace + prevod z retezce na int)
+            - tezsi rozcvicka: collatzova cisla
+            - vygooglit: how to check if number is even or odd
+
+        - BONUS: hrdina se jmenuje + superschopnost
+
+2. datove typy - jake mame, zkusit vypsat na tabuli co nejvic, ktere znaji
+    - INTERACTIVE SHELL - ukazat, jak zjistime typ 
+    - projit body 4 z W1D1 UkazkyKodu (Assets)
+
+3. seznamy - k cemu jsou? ukazka v interactive shellu?
+    - ukazka s vice zelvami
+    - co se da s nimi delat print(),seznam.append(), index(), remove(), seznam[i]
+    - (spojeni seznamu +)
+    - ukoly cviceni na seznamy - obchod a prodej
+
+3. cykly - s podminkou / forever
+    - ukazky cyklu
+    - vyresit otravne dite
+
+4. indexace seznamu for i in range()
+    - hadanka s kebab in range
+
+5. strings exercises
+
+6. cipher exercises
+
+
+    

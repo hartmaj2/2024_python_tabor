@@ -15,11 +15,13 @@ domain = ...
 print("Domain is:",domain)
 
 # TODO: Zmen tvrzeni na pravdive vypreparovanim Java a vlozenim toho spravneho jazyka
+# HINT: (ukousni si zacatek retezce + Python + ukousni konec retezce)
 statement = "Programming language Java is the best of them all."
+better_language = "Python"
 new_statement = ...
 print(new_statement)
 
-# Rezame seznamy
+# Rezani seznamu
 # V teto zprave je shovany vtip. Spln nasledujici ukoly a vtip se ti odhali
 message = "Why? Nobody knows. Unlike ordinary penguins, the Penguinors possessed extraordinary magical abilities and they were also skilled programmers, passed down through generations. This wizarding family resided in an enchanted ice castle hidden deep within the heart of a massive glacier, far away from people that hate nature. But the penguins they don't care even though It has too many bugs"
 

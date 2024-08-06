@@ -7,7 +7,7 @@ text = "Prisne tajna zprava"
 reversed = ...
 print("Otoceny text:",reversed)
 
-# TODO: Kazde pismenko preved na cislo dle poradi toho pismenka v abecede, oddel carkami, mezeru koduj jako 0
+# TODO: Kazde pismenko preved na cislo dle jeho poradi v abecede, oddel carkami, mezeru koduj jako 0
 # ahoj svete -> 1,8,15,10,0,19,22,5,20,
 number_text = ...
 print("Zakodovany jako cisla: ",number_text)

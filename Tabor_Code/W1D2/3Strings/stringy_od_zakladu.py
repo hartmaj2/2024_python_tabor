@@ -1,1 +1,0 @@
-# Naucime se zaklady prace s retezci
