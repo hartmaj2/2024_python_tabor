@@ -12,23 +12,6 @@ rady - VICE TO OPAKOVAT
 - nebojte se chybovat (nic nevybouchne)
 - radte se mezi sebou
 
-zaklady programovani
-- co je program? (jak muze vypadat, jeden/vice souboru, pripona .py)
-    
-- popovidame si o zakladech ruzne pojmy - znaji uz to ze Scratche?
-    - pokud ano, staci jen se naucit prevadet ( viz 4convert_to_python.png)
-    
-- program v textovem souboru vs interaktivni shell
-    - ukazat v shellu (je dobry na testovani) 
-        - zabudovane funkce: print, type, int, str atd.
-        - aritmeticke operace, operace na retezcich
-- beh programu v Thonny (Assets -> Ukazky Kodu)
-    - poradi prikazu
-    - komentare
-    - promenne - menici se hodnota
-    - datove typy promennych
-    - cteni vstupu
-
 - uvod do VS Code - co to umi atd.
 
 - cviceni pro ne - 1Rozcvicky zkusi sami 
