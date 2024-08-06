@@ -28,10 +28,14 @@ penize = 13
     # pokud si zvolil nakup -> zobraz seznam predmetu v obchode
     #   ...          prodej -> zobraz seznam predmetu z inventare
 
-# BONUS TODO: 
+# BONUS TODO: pridej i moznost buy a sell
+# 1. zeptej se uzivatele, zda chce kupovat nebo prodavat
+# 2. podle jeho volby:
+    # pokud si zvolil nakup -> zobraz seznam predmetu v obchode
+    #   ...          prodej -> zobraz seznam predmetu z inventare
 
 
-
+# BONUS2 TODO: pridej moznost nechat si vypsat celkovou hodnotu vsech veci ve tvem inventari
 
 
 
