@@ -24,4 +24,4 @@
 # BONUS TODO: Pridej prvky nahody (nahodny pocet penez atd.)
 
 # BONUS TODO: Pridej inventar z cviceni s obchodem do teho hry (nejlepe udelej funkci obchod, ktera zabali tvuj program s obchodem do sve definice)
-# Pribyde tedy moznost 5. Jit nakupovat predmetym
+# Pribyde tedy moznost 5. Jit nakupovat predmety
