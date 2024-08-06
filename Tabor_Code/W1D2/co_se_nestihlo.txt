@@ -1,0 +1,22 @@
+1. ukazat, jak jsem si predstavoval ty domecky s funkcemi 
+    - zla firma co zadava porad jine pocty a velikosti dokumentu (nerozhodny klient)
+
+2. chtelo by to vice procvicit seznamy (indexaci)
+    - cviceni - vytahnout nahodne superschopnosti, superneschopnosti, jmena a zkombinovat
+
+3. zopakovat while loop
+    - hadanka - tri zpusoby jak proindexovat cely seznam
+        - 1. while loop
+        - 2. for i in range loop
+        - 3. for each item in loop
+    - cviceni - otravne dite
+
+4. prace s retezci - nemusime delat nic sloziteho
+    - sifry mozna preskocime uplne (jestli neche Alca dodelat?)
+
+5. udelat dinosaurovi v T-Rex game animace chuze 
+
+6. vymyslet, jak bychom naprogramovali louku a padajici asteroidy ze shora, kterym musime uhybat
+
+7. k prikladu s obchodem jsme nedodelali nakup a prodej (jen jsme vytiskli ceny)
+
