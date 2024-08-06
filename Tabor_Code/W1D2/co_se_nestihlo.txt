@@ -20,3 +20,5 @@
 
 7. k prikladu s obchodem jsme nedodelali nakup a prodej (jen jsme vytiskli ceny)
 
+8. ukazat, kde muzou cvicit (KSP,Hackerrank,Leetcode,AdventOfCode)
+
