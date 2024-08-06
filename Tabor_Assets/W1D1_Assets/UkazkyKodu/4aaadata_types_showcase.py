@@ -50,7 +50,7 @@ print(len(seznam))
 seznam.append("sova")
 print(seznam)
 prvek = seznam[3]
-seznam.index("pergamen")
+print(seznam.index("pergamen")
 
 
 
