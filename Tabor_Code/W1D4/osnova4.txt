@@ -1,0 +1,16 @@
+TOPIC: opakovani loopu
+    - jake mame loopy? 
+        - 1. while loop
+        - 2. for i in range loop
+        - 3. for prvek in seznam loop (for each loop)
+    - break
+
+0. posadit Sevu dopredu - at lepe vidi na tabuli :) 
+
+1. ukazeme si hadanku na cykly - jaky je rozdil
+
+2. naimplementujeme si prvni while cyklus - otravne dite s breakem
+
+3. OPTIONAL: trenazer hrdiny - jako nam ukazoval David
+
+3. OPTIONAL: mars rover - pouzit cykly

@@ -9,8 +9,8 @@ skore = [20,34,54,65,132]
 
 # TODO: vypis postupne vsechny hrace a jejich skore
 
-# TODO: pokud seznam hracu obsahuje spytihnev, tak vypis jeho nick a rekni, ze je zabanovany
+# TODO: napis kod, ktery zkontroluje zda seznam hracu obsahuje spytihnev2, tak vypis jeho nick a rekni, ze je zabanovany
 
-# TODO: secti skore vsech hracu dohromady, pokud je vetsi nez 200, tak napis, ze vyhrali
+# TODO: napis kod, ktery secte skore vsech hracu dohromady, a pokud je vetsi nez 200, tak napis, ze vyhrali
 
 

@@ -1,0 +1,5 @@
+1. ukazat cryptii - rozsifrujeme ty zpravy z listecku
+
+2. jeli jsme random hero generator - bylo to moc těžké (moc věcí na opisování)
+
+3. ukázali jsme si codecombat
