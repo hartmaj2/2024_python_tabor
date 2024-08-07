@@ -73,11 +73,26 @@ class Player(MovingCharacter):
     ducking_x_pos = 120
     standing_x_pos = 100
     player_standing_height = 0
+    standing_frames = ["W1D5/trexgraphics/trex3.png","W1D5/trexgraphics/trex4.png"]
+    ducking_frames = ["W1D5/trexgraphics/trex_duck1.png","W1D5/trexgraphics/trex_duck2.png"]
+    anim_time = 100
 
     def __init__(self, surface : pygame.Surface, speed : list[int,int]):
         super().__init__(surface,speed)
         self.ducking = False
         Player.player_standing_height = self.rect.height
+        self.next_anim_time = pygame.time.get_ticks()  + Player.anim_time
+        self.current_frame = 0
+
+    def draw(self):
+        if pygame.time.get_ticks() > self.next_anim_time:
+            self.current_frame = (self.current_frame + 1) % len(Player.standing_frames)
+            self.next_anim_time = pygame.time.get_ticks() + Player.anim_time
+            if not self.ducking:
+                player.surf = pygame.image.load(Player.standing_frames[self.current_frame])
+            else:
+                player.surf = pygame.image.load(Player.ducking_frames[self.current_frame])
+        screen.blit(self.surf,self.rect)
 
     def update(self):
         self.speed.y += GRAVITY
@@ -93,24 +108,28 @@ class Player(MovingCharacter):
     
     def set_ducking(self):
         self.ducking = True
-        player.surf = pygame.image.load("W1D5/trexgraphics/trex_duck1.png")
+        player.surf = pygame.image.load(Player.ducking_frames[self.current_frame])
         player.rect = player.surf.get_rect()
         player.rect.midbottom = (Player.ducking_x_pos,GROUND_HEIGHT)
-    
-    def try_set_standing(self):
-        if player.rect.bottom >= GROUND_HEIGHT:
-            self.ducking = False
-            player.surf = pygame.image.load("W1D5/trexgraphics/trex1.png")
-            player.rect = player.surf.get_rect()
-            player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
+    def set_standing(self):
+        self.ducking = False
+        player.surf = pygame.image.load(Player.standing_frames[self.current_frame])
+        player.rect = player.surf.get_rect()
+        player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)       
+
+    def try_set_standing(self):
+        if player.rect.bottom >= GROUND_HEIGHT and self.ducking:
+            self.set_standing()
+            
     def try_jump(self):
         if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
             player.speed.y = -JUMP_POWER
     
     def try_duck(self):
-        if player.rect.bottom >= GROUND_HEIGHT:
+        if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
             self.set_ducking()
+            
 
 class StateRunning:
 
