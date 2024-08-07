@@ -7,6 +7,8 @@ TOPIC: opakovani loopu
 
 0. posadit Sevu dopredu - at lepe vidi na tabuli :) 
 
+0. Alca muze dodelavat simulator hrdiny
+
 1. ukazeme si hadanku na cykly - jaky je rozdil
 
 2. naimplementujeme si prvni while cyklus - otravne dite s breakem
