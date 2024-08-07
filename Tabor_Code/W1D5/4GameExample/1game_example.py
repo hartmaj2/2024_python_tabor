@@ -70,7 +70,6 @@ class MovingCharacter(Character):
     
 class Player(MovingCharacter):
 
-    ducking_x_pos = 120
     standing_x_pos = 100
     player_standing_height = 0
     standing_frames = ["W1D5/trexgraphics/trex3.png","W1D5/trexgraphics/trex4.png"]
@@ -110,7 +109,7 @@ class Player(MovingCharacter):
         self.ducking = True
         player.surf = pygame.image.load(Player.ducking_frames[self.current_frame])
         player.rect = player.surf.get_rect()
-        player.rect.midbottom = (Player.ducking_x_pos,GROUND_HEIGHT)
+        player.rect.midbottom = (Player.standing_x_pos+20,GROUND_HEIGHT)
 
     def set_standing(self):
         self.ducking = False
