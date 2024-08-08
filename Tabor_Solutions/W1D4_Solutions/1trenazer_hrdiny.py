@@ -20,7 +20,12 @@ def clear_screen():
   os.system("clear")
 
 def print_line():
-  print("------------------")
+  print("--------------------------------")
+
+def ziskej_volbu_uzivatele():
+  global volba
+  vytiskni_volby()
+  volba = input("Zadej volbu: ")
 
 def vytiskni_volby():
   print_line()
@@ -101,8 +106,7 @@ press_enter_to_continue()
 while volba != "4":
   clear_screen()
   vytiskni_hrdinu()
-  vytiskni_volby()
-  volba = input("Zadej volbu: ")
+  ziskej_volbu_uzivatele()
   print()
   vyhodnot_moznosti()
   press_enter_to_continue()
