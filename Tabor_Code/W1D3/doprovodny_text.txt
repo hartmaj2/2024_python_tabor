@@ -37,10 +37,6 @@ SAMOTNA PRACE S OBRAZKY
 Hezke funkce: resize, rotate
 
 
-
-
-
-
 K cemu je dobre tohle delat kodem -> automatizace 
     - mame 10 obrazku, ty nam nejaky lump pootacel a navic je cheme cernobile
     - najdeme je ve slozce pootacene
