@@ -5,14 +5,26 @@ TOPIC: opakovani loopu
         - 3. for prvek in seznam loop (for each loop)
     - break
 
-0. posadit Sevu dopredu - at lepe vidi na tabuli :) 
+Technicke veci:
+    (0) zjistit, kde je appka vylozene na malovani
+    (a) posadit Sevu dopredu - at lepe vidi na tabuli :) 
+    (b) Alca muze dodelavat simulator hrdiny
 
-0. Alca muze dodelavat simulator hrdiny
 
 1. ukazeme si hadanku na cykly - jaky je rozdil
 
-2. naimplementujeme si prvni while cyklus - otravne dite s breakem
+2. naimplementujeme si prvni while cyklus - otravne dite s breakem, otravny ucitel
+    (a) ukazat vzorova reseni obou programu
 
-3. OPTIONAL: trenazer hrdiny - jako nam ukazoval David
+3. OPTIONAL: trenazer hrdiny
+    (a) jako nam ukazoval David, 
+    (b) ukazu vzorovy priklad
+    (c) procvicime cyklus
+    (d) muzou byt kreativni
 
 3. OPTIONAL: mars rover - pouzit cykly
+    (a) uvodni pribeh
+    (b) kazdy, kdo zvladne splnit misi ji pak muze predvest pred tridou
+
+4. Guess number / hangman / collatz / arithmetic trainer / nim 
+    (a) ukazat vzorova reseni
