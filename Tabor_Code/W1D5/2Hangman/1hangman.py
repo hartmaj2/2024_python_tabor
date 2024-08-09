@@ -1,34 +1,139 @@
-# Postupne si naprogramujes hangmana. K tomu te navedou nasledujici ukoly.
+import random
+import os
 
-# TODO: Predstav si, ze tajne 
+HANGMAN_PICS = [
+    """
+       +---+
+       |   |
+           |
+           |
+           |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+           |
+           |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+       |   |
+           |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+      /|   |
+           |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+           |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+      /    |
+           |
+    =========
+    """,
+    """
+       +---+
+       |   |
+       O   |
+      /|\\  |
+      / \\  |
+           |
+    =========
+    """
+]
 
-# TODO: Predstav si. Ze tajne slovo je "aligator" a ze uzivatel 
-# dava prvni odhad pismeno "a". Vytvor retezec "a _ _ _ a _ _ "
-tajne = "aligator"
+HANGMAN_WORDS = [
+    "python",
+    "javascript",
+    "hangman",
+    "development",
+    "algorithm",
+    "function",
+    "variable",
+    "keyboard",
+    "condition",
+    "iteration"
+]
+
+MAX_MISTAKES = 5
+
+### SOLUTION
+mistakes = 0
+tajne = random.choice(HANGMAN_WORDS)
+stav = len(tajne) * "_"
+while True:
+    print(HANGMAN_PICS[mistakes])
+    print(stav)
+    odhad = input("Jake pismeno chces hadat? ")
+    if odhad in tajne:
+        print("Trefil jsi se")
+        novy = ""
+        for i in range(len(tajne)):
+            if odhad == tajne[i]:
+                novy = novy + odhad
+            else:
+                novy = novy + stav[i]
+        stav = novy
+    else:
+        print("Spatne")
+        mistakes = mistakes + 1
+        if MAX_MISTAKES == mistakes:
+            break
+    if not "_" in stav:
+        print("Vyhral jsi")
+        break
+
+### END OF SOLUTION  
+
+# TODO: Dokazat ziskat pocatecni stav pro nejake slovo
+tajne_slovo = "aligator"
+# chceme: _ _ _ _ _ _ _ _
+
+# TODO: Ziskat novy stav pro pocatecni stav _ _ _ _ _ _ _
+tajne_slovo = "babovka"
+pocatecni_stav = "_______"
 odhad = "a"
+# cheme: _ a _ _ _ _ a
 
-# TODO: Napis funkci, ktera zjisti, zda je pismenko b ve slove
-slovo1 = "aligator"
+# TODO: Ziskat novy stav pokud stav byl _ a _ _ _ _ a
+tajne_slovo = "babovka"
+stav = "_a____a"
+odhad = "b"
+# chceme: b a b _ _ _ a
 
-def pismenko_b_ve_slove1():
-    global slovo1
-    ...
-    # return True / return False 
 
-if pismenko_b_ve_slove1() == True:
-    print("Pismenko b je ve slove1")
+# TODO: To co jsme doposud vytvorili cele vlozit do while cyklu
+#   (a) jake promenne se budou menit a jake budou zustavat stejne?
+#   (b) odhad si nechat nacist od uzivatele
+#   (c) vzdy si spocitat/vytvorit novy stav a ten potom nahrat do promenne stav
 
-# TODO: Napis funkci, ktera zjisti, zda zadane pismenko je v zadanem slove
-def pismeno_ve_slove(pismeno,slovo):
-    ...
 
-if pismeno_ve_slove("t","platidlo") == True:
-    print("Tva funkce asi funguje!")
-
-if not pismeno_ve_slove("t","pernicek"):
-    print("Tva funkce asi funguje")
-
-# TODO: Dale uz nestihnu pripravit podukoly, ale tady mas pseudokot, ktery ti snad pomuze
+# TODO: Pridat pocet chyb a podle nich kdyztak skoncit cyklus 
 
 ### PSEUDOCODE ###
 # 0. Privitej hrace
@@ -47,15 +152,3 @@ if not pismeno_ve_slove("t","pernicek"):
 # 13.       Vytiskni "Vyhral jsi"
 # 14s. Jinak:
 # 15.       Vytiskni "Prohral jsi"
-
-# HINT: Nech ChatGPT vygenerovat ten seznam slov, ze kterych budes vybirat
-# HINT: Nech si take vygenerovat seznam, ktery ti umozni podle poctu chyb vytisknout spravny "obrazek" sibenice
-# HINT: Aktualni stav slova vypada napr "a__ga___"
-# HINT: jestli je letter in word muzes zkontrolovat pomoci
-# if letter in word:
-#       udelej neco
-
-# HINT: pokud hrac uhadl znak tak vytvor novy aktualni stav tim, ze
-# postupne pojedes pres vsechny znaky a 
-#   pokud se znak rovna tomu hadanemu, tak ho pridej do noveho aktualniho stavu
-#   jinak pouzij pismeno ze stareho aktualniho stavu
