@@ -1,5 +1,4 @@
 import random
-import os
 
 HANGMAN_PICS = [
     """
