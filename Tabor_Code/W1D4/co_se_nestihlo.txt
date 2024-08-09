@@ -1,0 +1,11 @@
+1. zeptat se na konci, co se komu nejvice libilo
+
+2. zopakovat veci, co jsme se naucili, aby si to lepe pamatovali
+    (a) ze mame ruzne typy loopu
+        - while 
+        - for i in range
+        - for neco in seznam
+    (b) while True se da ukoncit breakem
+    (c) !=, ==, <=, >=
+
+3. zeptat se Ami, jak dopadl jeji trenazer hrdiny
