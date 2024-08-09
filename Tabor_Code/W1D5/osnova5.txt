@@ -1,0 +1,38 @@
+TOPIC: prace se stringy, opakovani seznamu, (funkce)
+    (0) cykly
+        - 1. while loop
+        - 2. for i in range loop
+        - 3. for prvek in seznam loop (for each loop)
+    (1) break
+
+Technicke veci:
+    (0) kde je appka na malovani
+    (1) chce Ami ukazat svuj program?
+
+0. Opakovani ze vcera:
+    (a) jake mame typy loopu?
+    (b) jak muzeme vyskocit z loopu
+    (c) jak zvetsit hodnotu ciselne promenne o neco?
+
+1. Stringy teorie
+    (0) string - retezec; sklada se ze znaku; je to vlastne seznam znaku
+    (a) "karel" + "IV"
+    (a) co dela scitani na stringu?
+        napr. slovo = slovo + "zirafa"
+    (b) jak muzu ziskat pismenko na konkretni pozici?
+    (c) jak muzu ziskat vybranou cast slova?
+        napr. prvnich pet znaku
+    (BONUS) print bez noveho radku
+
+2. Stringy cviceni 
+    (0) nejprve ukazat priklady
+    (a) resit postupne shora dolu
+    (b) jsou tam schovane hadanky
+
+3. Hangman 
+    (a) budeme postupne resit podukoly
+    (b) obrazky a seznam slov si nechame vygenerovat ChatGPT
+
+
+
+

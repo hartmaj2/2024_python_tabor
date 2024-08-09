@@ -51,23 +51,25 @@ secret1 = "Hoogwp sdtiddh bthhres afniyrdsetd tp rbodgrrlanmb odniaed?u fItt  fw
 every_second_char = ...
 print("Every second character:", every_second_char)
 
-# # TODO: Obrat retezec naruby
+
+# TODO: Postupne vypis vsechny znaky retezce pomoci for i in range
+retezec = "Pan kaplan v kapli plakal."
+
+# TODO: Obrat retezec naruby pomoci for i in range
 reverse_me = ".t’nod ohw esoht dna yranib dnatsrednu ohw esohT .dlrow siht ni elpoep fo sepyt 01 era erehT"
 reversed = ...
 print("Reversed string: ",reversed)
 
+# TODO: Spoj vsechny slova ze seznamu do jednoho retezce
+# HINT: pouzij for loop 
+# HINT: pouzij take: retezec = retezec + neco_noveho
+slova1 = ["nej","kulatou","linkatejsi"]
+slova2 = ["big","brown","fox","jumped","over","fence"]
 
-# TODO: Write a function to check if the given word is a palindrome using slicing. A palindrome reads the same forwards and backwards.
-word = "madam"
+# chceme ziskat retezec "nejkulatoulinkatejsi" nebo "bigbrownfoxjumpedoverfence" (musi to fungovat pro oba seznamy)
 
-def is_palindrome(str):
-    ...
 
-result = is_palindrome(word)
-print(f"Is '{word}' a palindrome?:", result)
 
-# TODO: Extract every third character starting from word quick ending with word lazy
-text = "A quick brown fox jumps over the lazy dog."
-every_third_char = ...
-print("Every third character from given segment:", every_third_char)
+
+
 
