@@ -31,6 +31,7 @@ Technicke veci:
 
 3. Hangman 
     (a) budeme postupne resit podukoly
+        (1) jeden odhad cloveka
     (b) obrazky a seznam slov si nechame vygenerovat ChatGPT
 
 
