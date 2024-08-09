@@ -1,0 +1,6 @@
+1. Funkce:
+    - ukazat, jak by mel vypadat stavitelska firma program pomoci funkci
+    - proc je to dobre ukazat na prikladu se zlomyslnym zadavatelem
+        (najednou ty domy chce vsechny mensi a pak zase vetsi)
+
+2. Ne vsichni udelali hangmana - Ami, Seva, Sam a Oliver
