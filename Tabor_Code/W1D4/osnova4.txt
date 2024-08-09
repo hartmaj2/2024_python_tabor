@@ -28,3 +28,11 @@ Technicke veci:
 
 4. Guess number / hangman / collatz / arithmetic trainer / nim 
     (a) ukazat vzorova reseni
+
+5. hrali jsme hru s legem
+    (a) mame 2 tymy
+    (b) kazdy tym ma role: popisovatel, komunikator, stavitel
+    (c) jedna predloha - vidi ji jen popisovatele
+    (d) dve podlozky na ktere se stavy a stejne sady dilku - vidi je jen stavitele
+    (e) stavitele jsou v ruznych mistnostech, popisovatele v jedne spolecne, kde je dobre schovana predloha aby ji mohli videt jen oni 
+    (f) komunikatori behaji chodbou mezi popisovatelnou a stavitelnami
