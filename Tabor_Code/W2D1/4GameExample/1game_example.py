@@ -249,6 +249,9 @@ class Enemy(MovingCharacter):
 
 class EventEnemySpawner:
     
+    cactus_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png")
+    flying_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png")
+
     spawn_event = pygame.event.custom_type()
 
     level_base_speed = [9,10,12,14,18]
@@ -269,13 +272,13 @@ class EventEnemySpawner:
     
     def create_cactus(self):
         global level
-        cactus = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png"),(-EventEnemySpawner.level_base_speed[level-1],0))
+        cactus = Enemy(EventEnemySpawner.cactus_image,(-EventEnemySpawner.level_base_speed[level-1],0))
         cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
         return cactus
     
     def create_flying(self,speed_offset):
         global level
-        flying = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png"),(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
+        flying = Enemy(EventEnemySpawner.flying_image,(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
         flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
         return flying
 
