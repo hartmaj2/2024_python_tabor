@@ -6,7 +6,7 @@ pygame.init()
 WIDTH = 800
 HEIGHT = 400
 screen = pygame.display.set_mode((WIDTH,HEIGHT)) 
-clock = pygame.time.Clock() # 1. PRIDAME CLOCK OBJEKT, KTERY MA FUNKCI, KTEROU POTREBUJEME
+clock = pygame.time.Clock()
 font = pygame.font.Font("Tabor_Code/W2D1/font/Pixeltype.ttf",50)
 
 background = pygame.transform.grayscale(pygame.image.load("Tabor_Code/W2D1/graphics/Sky.png"))
