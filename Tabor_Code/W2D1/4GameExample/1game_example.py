@@ -170,6 +170,8 @@ class StateRunning:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_w]:
                         player.try_jump()
+                if event.type == OtherSpawner.spawn_event:
+                    spawner.spawn_enemy()
 
     def reset(self):
         global start_time, enemies, level, score
@@ -239,14 +241,58 @@ class Enemy(MovingCharacter):
         if self.rect.colliderect(player.rect):
             game_state = StateMenu("Restart",f"You died with {score} points.")
 
+
+class OtherSpawner:
+    
+    spawn_event = pygame.event.custom_type()
+
+    level_base_speed = [9,10,12,14,18]
+    level_spawn_delay = [1500,1400,1300,1200,1200]
+    spawn_diff_ratio = 1/3
+
+    
+    def __init__(self):
+        global level
+        self.last_level = level
+        pygame.time.set_timer(OtherSpawner.spawn_event,OtherSpawner.level_spawn_delay[level-1])
+    
+    def update(self):
+        global level
+        if level > self.last_level:
+            self.last_level = level
+            pygame.time.set_timer(OtherSpawner.spawn_event,OtherSpawner.level_spawn_delay[level-1])
+    
+    def create_cactus(self):
+        global level
+        cactus = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png"),(-OtherSpawner.level_base_speed[level-1],0))
+        cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
+        return cactus
+    
+    def create_flying(self,speed_offset):
+        global level
+        flying = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png"),(-OtherSpawner.level_base_speed[level-1]+speed_offset,0))
+        flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
+        return flying
+
+    def spawn_enemy(self):
+        global enemies
+        percentage = random.randint(0,100)
+        
+        if percentage < 30:
+            speed_offset = random.randint(-2,0)
+            enemy = self.create_flying(speed_offset)
+        else:
+            enemy = self.create_cactus()
+        enemies.append(enemy)
+    
+
 class EnemySpawner:
 
     level_base_speed = [9,10,12,14,18]
     level_spawn_delay = [1500,1400,1300,1200,1200]
     spawn_diff_ratio = 1/3
 
-    def __init__(self,image_path):
-        self.image_path = image_path
+    def __init__(self):
         self.schedule_next_spawn()
     
     def update(self):
@@ -287,7 +333,7 @@ player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
 enemies : list[Enemy] = [] 
 
-spawner = EnemySpawner("Tabor_Code/W2D1/trexgraphics/cactus1.png")
+spawner = OtherSpawner()
 
 game_state = StateMenu("Start","Retro-Rex")
 
