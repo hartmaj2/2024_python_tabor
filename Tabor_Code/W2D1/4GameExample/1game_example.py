@@ -170,7 +170,7 @@ class StateRunning:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_w]:
                         player.try_jump()
-                if event.type == OtherSpawner.spawn_event:
+                if event.type == EventEnemySpawner.spawn_event:
                     spawner.spawn_enemy()
 
     def reset(self):
@@ -242,7 +242,7 @@ class Enemy(MovingCharacter):
             game_state = StateMenu("Restart",f"You died with {score} points.")
 
 
-class OtherSpawner:
+class EventEnemySpawner:
     
     spawn_event = pygame.event.custom_type()
 
@@ -254,23 +254,23 @@ class OtherSpawner:
     def __init__(self):
         global level
         self.last_level = level
-        pygame.time.set_timer(OtherSpawner.spawn_event,OtherSpawner.level_spawn_delay[level-1])
+        pygame.time.set_timer(EventEnemySpawner.spawn_event,EventEnemySpawner.level_spawn_delay[level-1])
     
     def update(self):
         global level
         if level > self.last_level:
             self.last_level = level
-            pygame.time.set_timer(OtherSpawner.spawn_event,OtherSpawner.level_spawn_delay[level-1])
+            pygame.time.set_timer(EventEnemySpawner.spawn_event,EventEnemySpawner.level_spawn_delay[level-1])
     
     def create_cactus(self):
         global level
-        cactus = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png"),(-OtherSpawner.level_base_speed[level-1],0))
+        cactus = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png"),(-EventEnemySpawner.level_base_speed[level-1],0))
         cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
         return cactus
     
     def create_flying(self,speed_offset):
         global level
-        flying = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png"),(-OtherSpawner.level_base_speed[level-1]+speed_offset,0))
+        flying = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png"),(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
         flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
         return flying
 
@@ -333,7 +333,7 @@ player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
 enemies : list[Enemy] = [] 
 
-spawner = OtherSpawner()
+spawner = EventEnemySpawner()
 
 game_state = StateMenu("Start","Retro-Rex")
 
