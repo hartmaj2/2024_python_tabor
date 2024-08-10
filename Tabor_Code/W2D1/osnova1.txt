@@ -1,0 +1,10 @@
+TOPIC: vyvoj her
+
+todo:
+    herni enginy
+        - nechceme muset vyrabet neco, co uz existuje (fyzika, gravitace)
+        - nekdy se hodi si veci moci naklikat - kudy budou chodit nepratele, herni mapa atd.
+    snimky (FPS) - film vs hrac
+    herni smycka
+    kolize
+    
