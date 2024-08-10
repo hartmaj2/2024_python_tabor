@@ -72,8 +72,13 @@ class Player(MovingCharacter):
 
     standing_x_pos = 100
     player_standing_height = 0
-    standing_frames = ["Tabor_Code/W2D1/trexgraphics/trex3.png","Tabor_Code/W2D1/trexgraphics/trex4.png"]
-    ducking_frames = ["Tabor_Code/W2D1/trexgraphics/trex_duck1.png","Tabor_Code/W2D1/trexgraphics/trex_duck2.png"]
+
+    standing_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex3.png")
+    standing_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex4.png")
+    standing_frames = [standing_frame_1,standing_frame_2]
+    ducking_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck1.png")
+    ducking_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck2.png")
+    ducking_frames = [ducking_frame_1,ducking_frame_2]
     anim_time = 100
 
     def __init__(self, surface : pygame.Surface, speed : list[int,int]):
@@ -88,9 +93,9 @@ class Player(MovingCharacter):
             self.current_frame = (self.current_frame + 1) % len(Player.standing_frames)
             self.next_anim_time = pygame.time.get_ticks() + Player.anim_time
             if not self.ducking:
-                player.surf = pygame.image.load(Player.standing_frames[self.current_frame])
+                player.surf = Player.standing_frames[self.current_frame]
             else:
-                player.surf = pygame.image.load(Player.ducking_frames[self.current_frame])
+                player.surf = Player.ducking_frames[self.current_frame]
         screen.blit(self.surf,self.rect)
 
     def update(self):
@@ -107,13 +112,13 @@ class Player(MovingCharacter):
     
     def set_ducking(self):
         self.ducking = True
-        player.surf = pygame.image.load(Player.ducking_frames[self.current_frame])
+        player.surf = Player.ducking_frames[self.current_frame]
         player.rect = player.surf.get_rect()
         player.rect.midbottom = (Player.standing_x_pos+20,GROUND_HEIGHT)
 
     def set_standing(self):
         self.ducking = False
-        player.surf = pygame.image.load(Player.standing_frames[self.current_frame])
+        player.surf = Player.standing_frames[self.current_frame]
         player.rect = player.surf.get_rect()
         player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)       
 
