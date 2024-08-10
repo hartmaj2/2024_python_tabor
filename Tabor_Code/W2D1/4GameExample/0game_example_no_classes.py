@@ -1,9 +1,3 @@
-# (1) remove classes for game states
-# (2) remove class for player
-# (3) remove classes for flying enemies and moving characters
-# (4) remove classes for spawners
-
-
 import pygame
 import random
 
@@ -29,277 +23,96 @@ start_time = 0
 score = 0
 level = 1
 
-class Speed:
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
 
-class Character:
-    def __init__(self,surface : pygame.Surface):
-        self.surf = surface
-        self.rect = self.surf.get_rect()
-    
-    def draw(self):
-        screen.blit(self.surf,self.rect)
 
-class Text(Character):
-    def __init__(self,text):
-        super().__init__(font.render(text,True,"Black"))
-    
-    def update_text(self,new_text):
-        self.surf = font.render(new_text,True,"Black")
+border_offset = 10
 
-class Button(Character):
-    border_offset = 10
+button_color = "Grey"
 
-    def __init__(self,text,color):
-        self.color = color
-        super().__init__(font.render(text,True,"Black"))
 
-    def draw(self):
-        background_rect = pygame.Rect(self.rect.left-Button.border_offset,self.rect.top-Button.border_offset,self.rect.width+Button.border_offset*2,self.rect.height+Button.border_offset*1.2)
-        pygame.draw.rect(screen,self.color,background_rect)
-        pygame.draw.rect(screen,"Black",background_rect,2)
-        super().draw()
+# player 
+player_standing_x_pos = 100
+player_standing_height = 0
 
-    def mouse_over(self):
-        return self.rect.collidepoint(pygame.mouse.get_pos())
+player_standing_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex3.png")
+player_standing_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex4.png")
+player_standing_frames = [player_standing_frame_1,player_standing_frame_2]
+player_ducking_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck1.png")
+player_ducking_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck2.png")
+player_ducking_frames = [player_ducking_frame_1,player_ducking_frame_2]
+player_anim_time = 100
 
-class MovingCharacter(Character):
-    def __init__(self,surface : pygame.Surface, speed : list[int,int] ):
-        super().__init__(surface)
-        self.speed = Speed(speed[0],speed[1])
-    
-    def update(self):
-        self.rect.x += self.speed.x
-        self.rect.y += self.speed.y
-    
-class Player(MovingCharacter):
+player_surf = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png")
+player_rect = player_surf.get_rect()
+player_rect.midbottom = (player_standing_x_pos,GROUND_HEIGHT)
+player_y_speed = 0
 
-    standing_x_pos = 100
-    player_standing_height = 0
+player_ducking = False
+player_player_standing_height = player_rect.height
 
-    standing_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex3.png")
-    standing_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex4.png")
-    standing_frames = [standing_frame_1,standing_frame_2]
-    ducking_frame_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck1.png")
-    ducking_frame_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex_duck2.png")
-    ducking_frames = [ducking_frame_1,ducking_frame_2]
-    anim_time = 100
 
-    def __init__(self, surface : pygame.Surface, speed : list[int,int]):
-        super().__init__(surface,speed)
-        self.ducking = False
-        Player.player_standing_height = self.rect.height
-        self.next_anim_time = pygame.time.get_ticks()  + Player.anim_time
-        self.current_frame = 0
+player_next_anim_time = pygame.time.get_ticks()  + player_anim_time
+player_current_frame = 0
 
-    def draw(self):
-        if pygame.time.get_ticks() > self.next_anim_time:
-            self.current_frame = (self.current_frame + 1) % len(Player.standing_frames)
-            self.next_anim_time = pygame.time.get_ticks() + Player.anim_time
-            if not self.ducking:
-                player.surf = Player.standing_frames[self.current_frame]
-            else:
-                player.surf = Player.ducking_frames[self.current_frame]
-        screen.blit(self.surf,self.rect)
+# flying enemy
+flying_image_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying1.png")
+flying_image_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png")
+flying_images = [flying_image_1,flying_image_2]
 
-    def update(self):
-        self.speed.y += GRAVITY
-        super().update()
-        if player.rect.bottom > GROUND_HEIGHT:
-            player.rect.bottom = GROUND_HEIGHT
-            player.speed.y = 0
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_s]:
-            self.try_duck()
-        else:
-            self.try_set_standing()
-    
-    def set_ducking(self):
-        self.ducking = True
-        player.surf = Player.ducking_frames[self.current_frame]
-        player.rect = player.surf.get_rect()
-        player.rect.midbottom = (Player.standing_x_pos+20,GROUND_HEIGHT)
+flying_anim_event = pygame.event.custom_type()
+flying_frame_index = 0
 
-    def set_standing(self):
-        self.ducking = False
-        player.surf = Player.standing_frames[self.current_frame]
-        player.rect = player.surf.get_rect()
-        player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)       
-
-    def try_set_standing(self):
-        if player.rect.bottom >= GROUND_HEIGHT and self.ducking:
-            self.set_standing()
-            
-    def try_jump(self):
-        if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
-            player.speed.y = -JUMP_POWER
-    
-    def try_duck(self):
-        if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
-            self.set_ducking()
-
-class FlyingEnemy(MovingCharacter):
-
-    image_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying1.png")
-    image_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png")
-    images = [image_1,image_2]
-
-    flying_anim_event = pygame.event.custom_type()
-
-    def __init__(self, surface : pygame.Surface, speed : list[int,int]):
-        super().__init__(surface,speed)
-        pygame.time.set_timer(FlyingEnemy.flying_anim_event,100)
-        self.frame_index = 0
-    
-    def next_frame(self):
-        self.frame_index = (self.frame_index + 1) % len(FlyingEnemy.images)
-        self.surf = FlyingEnemy.images[self.frame_index]
+pygame.time.set_timer(flying_anim_event,100)
+flying_surf = flying_images[flying_frame_index]     
     
 
+score_text_surf = font.render(f"Score: {score}",None,"Black")
+score_text_rect = score_text_surf.get_rect()
+score_text_rect.topleft = (10,10)
 
-score_text = Text(f"Score: {score}")
-score_text.rect.topleft = (10,10)
-
-level_text = Text(f"Level: {level}")
-level_text.rect.topright = (WIDTH-10,10)
+level_text_surf = font.render(f"Level: {level}",None,"Black")
+level_text_rect = level_text_surf.get_rect()
+level_text_rect.topright = (WIDTH-10,10)
         
 
-dino_icon = Character(pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png"))
-dino_icon.surf = pygame.transform.scale_by(dino_icon.surf,1.5)
-dino_icon.rect = dino_icon.surf.get_rect()
-dino_icon.rect.center = (WIDTH/5,HEIGHT/2)
+dino_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png")
+dino_icon_surf = pygame.transform.scale_by(dino_image,1.5)
+dino_icon_rect = dino_icon_surf.get_rect()
+dino_icon_rect.center = (WIDTH/5,HEIGHT/2)
 
-dino_icon2 = Character(pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png"))
-dino_icon2.surf = pygame.transform.scale_by(dino_icon2.surf,1.5)
-dino_icon2.surf = pygame.transform.flip(dino_icon2.surf,True,False)
-dino_icon2.rect = dino_icon2.surf.get_rect()
-dino_icon2.rect.center = (WIDTH*4/5,HEIGHT/2)
+dino_icon2_surf = pygame.transform.scale_by(dino_image,1.5)
+dino_icon2_surf = pygame.transform.flip(dino_icon2_surf,True,False)
+dino_icon2_rect = dino_icon2_surf.get_rect()
+dino_icon2_rect.center = (WIDTH*4/5,HEIGHT/2)
 
-quit_game_button = Button("Quit","Grey")
-quit_game_button.rect.midtop = (WIDTH/2,HEIGHT/2+Button.border_offset+10)
-
-
-start_game_button = Button("Start Game","Grey")
-start_game_button.rect.midbottom = (WIDTH/2,HEIGHT/2-Button.border_offset-10)
-
-intro_text = Text("Retro-Rex")
-intro_text.rect.midtop = (WIDTH/2,40)
+quit_game_button_surf = font.render("Quit",True,"Black")
+quit_game_button_rect = quit_game_button_surf.get_rect()
+quit_game_button_rect.midtop = (WIDTH/2,HEIGHT/2+border_offset+10)
 
 
-class Enemy(MovingCharacter):
+start_game_button_surf = font.render("Start Game",True,"Black")
+start_game_button_rect = start_game_button_surf.get_rect()
+start_game_button_rect.midbottom = (WIDTH/2,HEIGHT/2-border_offset-10)  
 
-    def __init__(self,surface:pygame.Surface,speed :list[int,int]):
-        super().__init__(surface,speed)
-    
-    def update(self):
-        global game_state, start_game_button, intro_text
-        super().update()
-        if self.rect.colliderect(player.rect):
-            game_state = "MENU"
-            start_game_button = Button("Restart","Grey")
-            start_game_button.rect.midbottom = (WIDTH/2,HEIGHT/2-Button.border_offset-10)
-            intro_text = Text(f"You died with {score} points.")
-            intro_text.rect.midtop = (WIDTH/2,40)
+intro_text_surf = font.render("Retro-Rex",True,"Black")
+intro_text_rect = intro_text_surf.get_rect()
+intro_text_rect.midtop = (WIDTH/2,40)
 
-class EventEnemySpawner:
-    
-    cactus_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png")
-    flying_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png")
+ 
+cactus_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png")
 
-    spawn_event = pygame.event.custom_type()
+spawn_event = pygame.event.custom_type()
 
-    level_base_speed = [9,10,12,14,18]
-    level_spawn_delay = [1500,1400,1300,1200,1200]
-    spawn_diff_ratio = 1/3
+level_base_speed = [9,10,12,14,18]
+level_spawn_delay = [1500,1400,1300,1200,1200]
+spawn_diff_ratio = 1/3
 
-    
-    def __init__(self):
-        global level
-        self.last_level = level
-        pygame.time.set_timer(EventEnemySpawner.spawn_event,EventEnemySpawner.level_spawn_delay[level-1])
-    
-    def update(self):
-        global level
-        if level > self.last_level:
-            self.last_level = level
-            pygame.time.set_timer(EventEnemySpawner.spawn_event,EventEnemySpawner.level_spawn_delay[level-1])
-    
-    def create_cactus(self):
-        global level
-        cactus = Enemy(EventEnemySpawner.cactus_image,(-EventEnemySpawner.level_base_speed[level-1],0))
-        cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
-        return cactus
-    
-    def create_flying(self,speed_offset):
-        global level
-        flying = FlyingEnemy(EventEnemySpawner.flying_image,(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
-        flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
-        return flying
-
-    def spawn_enemy(self):
-        global cactuses
-        percentage = random.randint(0,100)
-        
-        if percentage < 30:
-            speed_offset = random.randint(-2,0)
-            enemy = self.create_flying(speed_offset)
-            flying_enemies.append(enemy)
-        else:
-            enemy = self.create_cactus()
-            cactuses.append(enemy)
+last_level = level
+pygame.time.set_timer(spawn_event,level_spawn_delay[level-1])
     
 
-class EnemySpawner:
-
-    level_base_speed = [9,10,12,14,18]
-    level_spawn_delay = [1500,1400,1300,1200,1200]
-    spawn_diff_ratio = 1/3
-
-    def __init__(self):
-        self.schedule_next_spawn()
-    
-    def update(self):
-        if pygame.time.get_ticks() >= self.next_spawn:
-            self.schedule_next_spawn()
-            self.spawn_enemy()
-    
-    def create_cactus(self):
-        global level
-        cactus = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png"),(-EnemySpawner.level_base_speed[level-1],0))
-        cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
-        return cactus
-    
-    def create_flying(self,speed_offset):
-        global level
-        flying = Enemy(pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png"),(-EnemySpawner.level_base_speed[level-1]+speed_offset,0))
-        flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
-        return flying
-
-    def spawn_enemy(self):
-        global cactuses
-        percentage = random.randint(0,100)
-        
-        if percentage < 30:
-            speed_offset = random.randint(-2,0)
-            enemy = self.create_flying(speed_offset)
-        else:
-            enemy = self.create_cactus()
-        cactuses.append(enemy)
-    
-    def schedule_next_spawn(self):
-        spawn_diff = int(EnemySpawner.spawn_diff_ratio * EnemySpawner.level_spawn_delay[level-1])
-        self.next_spawn = pygame.time.get_ticks() + EnemySpawner.level_spawn_delay[level-1] + random.randint(-spawn_diff,spawn_diff)
-        
-
-player = Player(pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png"),(0,0))
-player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
-
-cactuses : list[Enemy] = [] 
-flying_enemies : list[FlyingEnemy] = []
-
-spawner = EventEnemySpawner()
+cactus_rectangles : list[pygame.rect.Rect] = [] 
+flying_rectangles : list[pygame.rect.Rect] = []
 
 game_state = "MENU"
 
@@ -313,70 +126,158 @@ def get_level():
 while True:
 
     for event in pygame.event.get(): # pygame.event.get() vrati seznam eventu
+            
             if event.type == pygame.QUIT: 
                 pygame.quit()
                 exit()
             if game_state == "MENU":
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if start_game_button.mouse_over():
+                    if start_game_button_rect.collidepoint(pygame.mouse.get_pos()):
                         game_state = "RUNNING"
                         level = 1
                         score = 0
-                        cactuses.clear()
-                        flying_enemies.clear()
+                        cactus_rectangles.clear()
+                        flying_rectangles.clear()
                         start_time = pygame.time.get_ticks()
-                    if quit_game_button.mouse_over():
+                    if quit_game_button_rect.collidepoint(pygame.mouse.get_pos()):
                         pygame.quit()
                         exit()
+
+
             elif game_state == "RUNNING":
+
                 if event.type == pygame.KEYDOWN:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_w]:
-                        player.try_jump()
-                elif event.type == EventEnemySpawner.spawn_event:
-                    spawner.spawn_enemy()
-                elif event.type == FlyingEnemy.flying_anim_event:
-                    for flying_enemy in flying_enemies:
-                        flying_enemy.next_frame()
+                        if player_rect.bottom >= GROUND_HEIGHT and not player_ducking:
+                            player_y_speed = -JUMP_POWER
+
+                elif event.type == spawn_event:
+                    percentage = random.randint(0,100)
+                    if percentage < 30:
+                        rect = flying_surf.get_rect()
+                        rect.bottomleft = (WIDTH, GROUND_HEIGHT-player_player_standing_height+10)
+                        flying_rectangles.append(rect)
+                    else:
+                        rect = cactus_image.get_rect()
+                        rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
+                        cactus_rectangles.append(rect)
+
+                elif event.type == flying_anim_event:
+                        flying_frame_index = (flying_frame_index + 1) % len(flying_images)
+                        flying_surf = flying_images[flying_frame_index]
 
     if game_state == "MENU":
         
         # draw
         screen.blit(background,(0,0))
         screen.blit(ground,(0,GROUND_HEIGHT))
-        start_game_button.draw()
-        quit_game_button.draw()
-        dino_icon.draw()
-        dino_icon2.draw()
-        intro_text.draw()
+
+        background_rect = pygame.Rect(start_game_button_rect.left-border_offset,start_game_button_rect.top-border_offset,start_game_button_rect.width+border_offset*2,start_game_button_rect.height+border_offset*1.2)
+        pygame.draw.rect(screen,button_color,background_rect)
+        pygame.draw.rect(screen,"Black",background_rect,2)
+        screen.blit(start_game_button_surf,start_game_button_rect)
+
+        background_rect = pygame.Rect(quit_game_button_rect.left-border_offset,quit_game_button_rect.top-border_offset,quit_game_button_rect.width+border_offset*2,quit_game_button_rect.height+border_offset*1.2)
+        pygame.draw.rect(screen,button_color,background_rect)
+        pygame.draw.rect(screen,"Black",background_rect,2)
+        screen.blit(quit_game_button_surf,quit_game_button_rect)
+
+
+        screen.blit(dino_icon_surf,dino_icon_rect)
+        screen.blit(dino_icon2_surf,dino_icon2_rect)
+
+        screen.blit(intro_text_surf,intro_text_rect)
+
         pygame.display.flip() 
 
     elif game_state == "RUNNING":
 
-        # update
+        ### UPDATE
         score = (pygame.time.get_ticks() - start_time) // 100
-        score_text.update_text("Score: " + str(score))
-        level = get_level()
-        level_text.update_text("Level: " + str(level))
-        spawner.update()
-        player.update()
-        for cactus in cactuses:
-            cactus.update()
-            if cactus.rect.right < 0:
-                cactuses.remove(cactus)
-        for flying_enemy in flying_enemies:
-            flying_enemy.update()
-            if flying_enemy.rect.right < 0:
-                flying_enemies.remove(flying_enemy)
+        score_text_surf = font.render(f"Score: {score}",None,"Black")
+        score_text_rect = score_text_surf.get_rect()
+        score_text_rect.topleft = (10,10)
         
-        # draw
+        level = get_level()
+        level_text_surf = font.render(f"Level: {level}",None,"Black")
+        level_text_rect = level_text_surf.get_rect()
+        level_text_rect.topright = (WIDTH-10,10)
+
+        # spawner update
+        if level > last_level:
+            last_level = level
+            pygame.time.set_timer(spawn_event,level_spawn_delay[level-1])
+        
+        # player update
+        player_rect.y += player_y_speed
+        player_y_speed += GRAVITY
+        
+        if player_rect.bottom > GROUND_HEIGHT:
+            player_rect.bottom = GROUND_HEIGHT
+            player_y_speed = 0
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_s]:
+            if player_rect.bottom >= GROUND_HEIGHT and not player_ducking:
+                player_ducking = True
+                player_surf = player_ducking_frames[player_current_frame]
+                player_rect = player_surf.get_rect()
+                player_rect.midbottom = (player_standing_x_pos+20,GROUND_HEIGHT)
+        else:
+            if player_rect.bottom >= GROUND_HEIGHT and player_ducking:
+                player_ducking = False
+                player_surf = player_standing_frames[player_current_frame]
+                player_rect = player_surf.get_rect()
+                player_rect.midbottom = (player_standing_x_pos,GROUND_HEIGHT)  
+
+        # all enemies update
+        for enemy_rect in cactus_rectangles + flying_rectangles:
+            if enemy_rect.colliderect(player_rect):
+                game_state = "MENU"
+                start_game_button_surf = font.render("Restart",True,"Black")
+                start_game_button_rect = start_game_button_surf.get_rect()
+                start_game_button_rect.midbottom = (WIDTH/2,HEIGHT/2-border_offset-10)
+                intro_text_surf = font.render(f"You died with {score} points.",True,"Black")
+                intro_text_rect = intro_text_surf.get_rect()
+                intro_text_rect.midtop = (WIDTH/2,40)
+
+        # cactus update
+        for cactus_rect in cactus_rectangles:
+            cactus_rect.x -= level_base_speed[level-1]
+            if cactus_rect.right < 0:
+                cactus_rectangles.remove(cactus_rect)
+
+        # flying update
+        for flying_rect in flying_rectangles:
+            flying_rect.x -= level_base_speed[level-1]
+            if flying_rect.right < 0:
+                flying_rectangles.remove(flying_rect)
+        
+        # DRAW
         screen.blit(background,(0,0))
         screen.blit(ground,(0,GROUND_HEIGHT))
-        for enemy in cactuses + flying_enemies:
-            enemy.draw()
-        player.draw()
-        score_text.draw()
-        level_text.draw()
+
+        # draw cactuses
+        for cactus_rect in cactus_rectangles:
+            screen.blit(cactus_image,cactus_rect)
+
+        # draw flying
+        for flying_rect in flying_rectangles:
+            screen.blit(flying_surf,flying_rect)
+
+        # player draw
+        if pygame.time.get_ticks() > player_next_anim_time:
+            player_current_frame = (player_current_frame + 1) % len(player_standing_frames)
+            player_next_anim_time = pygame.time.get_ticks() + player_anim_time
+            if not player_ducking:
+                player_surf = player_standing_frames[player_current_frame]
+            else:
+                player_surf = player_ducking_frames[player_current_frame]
+        screen.blit(player_surf,player_rect)
+
+        screen.blit(score_text_surf,score_text_rect)
+        screen.blit(level_text_surf,level_text_rect)
         pygame.display.flip() 
     
     clock.tick(60)
