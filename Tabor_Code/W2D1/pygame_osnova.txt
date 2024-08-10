@@ -57,3 +57,34 @@ todo:
 
 12. ovladani pomoci klaves - checkujeme hodnoty v seznamu keys = pygame.key.get_pressed()
     - jednotlive pozice jsou preddefinovane napr. pygame.K_UP
+
+13. displaying score - potrebujeme font
+    - pygame.font.Font(filepath,size) zalozi font
+    - z fontu pak muzeme renderovat surfaces s textem
+
+14. herni stavy - delaji se pres if podle stavu ve kterem jsme
+    - co jsou to vubec herni stavy? - odpovidaji obrazovkam
+    - postava muze mit take stavy: skakajici, skrceny, bezici, mrtvy atd.
+
+15. transform - pouzijeme, pokud chceme nejak upravit texturu postavicky
+    - zmenit velikost
+    - zrotovat 
+
+16. custom events - nejjednodusi zpusob, jak casovat udalosti
+    - 1. vyrobit si cislo pro event -> pygame.event.custom_type()
+    - 2. zaregistrovat timer, ktery bude spoustet event po danych intervalech -> pygame.time.set_timer(cislo_eventu,interval)
+        - pokud zaregistruji novy timer pro stejny event, tak se ten stary timer zrusi
+    - (!) neumoznuje nepravidelne intervaly mezi spawny nepratel
+
+BONUS: Sprite class - pro lepsi oranizaci kodu 
+    - 1. kazdy sprite musi byt v nejake group
+        - (a) GroupSingle nebo Group
+        - (b) objekty ve stejne group mezi sebou nemohou kolidovat
+        - (c) hrdina byva v GroupSingle
+    - Group
+        - staci zavolat update a draw pro celou group
+        - kazdy objekt si resi svuj vlastni update - v nem update movement, update visuals
+    - pygame.sprite.Sprite je trida, od ktere nase classy musi dedit
+        - musi si pak nastavit self.image a self.rect
+    - kolize detekujeme pomoci pygame.sprite.collide_rect(self,player_group.sprite)
+    - for loop pres vsechny sprites z group lze pomoci group.sprites()
