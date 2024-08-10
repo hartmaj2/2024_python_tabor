@@ -7,10 +7,10 @@ WIDTH = 800
 HEIGHT = 400
 screen = pygame.display.set_mode((WIDTH,HEIGHT)) 
 clock = pygame.time.Clock() # 1. PRIDAME CLOCK OBJEKT, KTERY MA FUNKCI, KTEROU POTREBUJEME
-font = pygame.font.Font("W1D5/font/Pixeltype.ttf",50)
+font = pygame.font.Font("Unused/font/Pixeltype.ttf",50)
 
-background = pygame.transform.grayscale(pygame.image.load("W1D5/graphics/Sky.png"))
-ground = pygame.transform.grayscale(pygame.image.load("W1D5/graphics/ground.png"))
+background = pygame.transform.grayscale(pygame.image.load("Unused/graphics/Sky.png"))
+ground = pygame.transform.grayscale(pygame.image.load("Unused/graphics/ground.png"))
 
 ENEMY_BASE_SPEED = 10
 JUMP_POWER = 12
@@ -72,8 +72,8 @@ class Player(MovingCharacter):
 
     standing_x_pos = 100
     player_standing_height = 0
-    standing_frames = ["W1D5/trexgraphics/trex3.png","W1D5/trexgraphics/trex4.png"]
-    ducking_frames = ["W1D5/trexgraphics/trex_duck1.png","W1D5/trexgraphics/trex_duck2.png"]
+    standing_frames = ["Unused/trexgraphics/trex3.png","Unused/trexgraphics/trex4.png"]
+    ducking_frames = ["Unused/trexgraphics/trex_duck1.png","Unused/trexgraphics/trex_duck2.png"]
     anim_time = 100
 
     def __init__(self, surface : pygame.Surface, speed : list[int,int]):
@@ -180,12 +180,12 @@ class StateRunning:
                        
 class StateMenu:
 
-    dino_icon = Character(pygame.image.load("W1D5/trexgraphics/trex1.png"))
+    dino_icon = Character(pygame.image.load("Unused/trexgraphics/trex1.png"))
     dino_icon.surf = pygame.transform.scale_by(dino_icon.surf,1.5)
     dino_icon.rect = dino_icon.surf.get_rect()
     dino_icon.rect.center = (WIDTH/5,HEIGHT/2)
 
-    dino_icon2 = Character(pygame.image.load("W1D5/trexgraphics/trex1.png"))
+    dino_icon2 = Character(pygame.image.load("Unused/trexgraphics/trex1.png"))
     dino_icon2.surf = pygame.transform.scale_by(dino_icon2.surf,1.5)
     dino_icon2.surf = pygame.transform.flip(dino_icon2.surf,True,False)
     dino_icon2.rect = dino_icon2.surf.get_rect()
@@ -256,13 +256,13 @@ class EnemySpawner:
     
     def create_cactus(self):
         global level
-        cactus = Enemy(pygame.image.load("W1D5/trexgraphics/cactus1.png"),(-EnemySpawner.level_base_speed[level-1],0))
+        cactus = Enemy(pygame.image.load("Unused/trexgraphics/cactus1.png"),(-EnemySpawner.level_base_speed[level-1],0))
         cactus.rect.bottomleft = (WIDTH, GROUND_HEIGHT+10)
         return cactus
     
     def create_flying(self,speed_offset):
         global level
-        flying = Enemy(pygame.image.load("W1D5/trexgraphics/flying2.png"),(-EnemySpawner.level_base_speed[level-1]+speed_offset,0))
+        flying = Enemy(pygame.image.load("Unused/trexgraphics/flying2.png"),(-EnemySpawner.level_base_speed[level-1]+speed_offset,0))
         flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
         return flying
 
@@ -282,12 +282,12 @@ class EnemySpawner:
         self.next_spawn = pygame.time.get_ticks() + EnemySpawner.level_spawn_delay[level-1] + random.randint(-spawn_diff,spawn_diff)
         
 
-player = Player(pygame.image.load("W1D5/trexgraphics/trex1.png"),(0,0))
+player = Player(pygame.image.load("Unused/trexgraphics/trex1.png"),(0,0))
 player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
 enemies : list[Enemy] = [] 
 
-spawner = EnemySpawner("W1D5/trexgraphics/cactus1.png")
+spawner = EnemySpawner("Unused/trexgraphics/cactus1.png")
 
 game_state = StateMenu("Start","Retro-Rex")
 
