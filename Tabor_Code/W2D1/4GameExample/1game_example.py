@@ -133,8 +133,24 @@ class Player(MovingCharacter):
     def try_duck(self):
         if player.rect.bottom >= GROUND_HEIGHT and not self.ducking:
             self.set_ducking()
-            
 
+class FlyingEnemy(MovingCharacter):
+
+    image_1 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying1.png")
+    image_2 = pygame.image.load("Tabor_Code/W2D1/trexgraphics/flying2.png")
+    images = [image_1,image_2]
+
+    flying_anim_event = pygame.event.custom_type()
+
+    def __init__(self, surface : pygame.Surface, speed : list[int,int]):
+        super().__init__(surface,speed)
+        pygame.time.set_timer(FlyingEnemy.flying_anim_event,100)
+        self.frame_index = 0
+    
+    def next_frame(self):
+        self.frame_index = (self.frame_index + 1) % len(FlyingEnemy.images)
+        self.surf = FlyingEnemy.images[self.frame_index]
+    
 class StateRunning:
 
     score_text = Text(f"Score: {score}")
@@ -151,16 +167,21 @@ class StateRunning:
         StateRunning.level_text.update_text("Level: " + str(level))
         spawner.update()
         player.update()
-        for cactus in enemies:
+        for cactus in cactuses:
             cactus.update()
             if cactus.rect.right < 0:
-                enemies.remove(cactus)
+                cactuses.remove(cactus)
+        for flying_enemy in flying_enemies:
+            flying_enemy.update()
+            if flying_enemy.rect.right < 0:
+                flying_enemies.remove(flying_enemy)
+    
 
     def draw(self):
         screen.blit(background,(0,0))
         screen.blit(ground,(0,GROUND_HEIGHT))
-        for cactus in enemies:
-            cactus.draw()
+        for enemy in cactuses + flying_enemies:
+            enemy.draw()
         player.draw()
         StateRunning.score_text.draw()
         StateRunning.level_text.draw()
@@ -171,18 +192,22 @@ class StateRunning:
                 if event.type == pygame.QUIT: 
                     pygame.quit()
                     exit()
-                if event.type == pygame.KEYDOWN:
+                elif event.type == pygame.KEYDOWN:
                     keys = pygame.key.get_pressed()
                     if keys[pygame.K_w]:
                         player.try_jump()
-                if event.type == EventEnemySpawner.spawn_event:
+                elif event.type == EventEnemySpawner.spawn_event:
                     spawner.spawn_enemy()
+                elif event.type == FlyingEnemy.flying_anim_event:
+                    for flying_enemy in flying_enemies:
+                        flying_enemy.next_frame()
 
     def reset(self):
-        global start_time, enemies, level, score
+        global start_time, cactuses, flying_enemies, level, score
         level = 1
         score = 0
-        enemies = []
+        cactuses.clear()
+        flying_enemies.clear()
         start_time = pygame.time.get_ticks()
                        
 class StateMenu:
@@ -246,7 +271,6 @@ class Enemy(MovingCharacter):
         if self.rect.colliderect(player.rect):
             game_state = StateMenu("Restart",f"You died with {score} points.")
 
-
 class EventEnemySpawner:
     
     cactus_image = pygame.image.load("Tabor_Code/W2D1/trexgraphics/cactus1.png")
@@ -278,20 +302,21 @@ class EventEnemySpawner:
     
     def create_flying(self,speed_offset):
         global level
-        flying = Enemy(EventEnemySpawner.flying_image,(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
+        flying = FlyingEnemy(EventEnemySpawner.flying_image,(-EventEnemySpawner.level_base_speed[level-1]+speed_offset,0))
         flying.rect.bottomleft = (WIDTH, GROUND_HEIGHT-Player.player_standing_height+10)
         return flying
 
     def spawn_enemy(self):
-        global enemies
+        global cactuses
         percentage = random.randint(0,100)
         
         if percentage < 30:
             speed_offset = random.randint(-2,0)
             enemy = self.create_flying(speed_offset)
+            flying_enemies.append(enemy)
         else:
             enemy = self.create_cactus()
-        enemies.append(enemy)
+            cactuses.append(enemy)
     
 
 class EnemySpawner:
@@ -321,7 +346,7 @@ class EnemySpawner:
         return flying
 
     def spawn_enemy(self):
-        global enemies
+        global cactuses
         percentage = random.randint(0,100)
         
         if percentage < 30:
@@ -329,7 +354,7 @@ class EnemySpawner:
             enemy = self.create_flying(speed_offset)
         else:
             enemy = self.create_cactus()
-        enemies.append(enemy)
+        cactuses.append(enemy)
     
     def schedule_next_spawn(self):
         spawn_diff = int(EnemySpawner.spawn_diff_ratio * EnemySpawner.level_spawn_delay[level-1])
@@ -339,7 +364,8 @@ class EnemySpawner:
 player = Player(pygame.image.load("Tabor_Code/W2D1/trexgraphics/trex1.png"),(0,0))
 player.rect.midbottom = (Player.standing_x_pos,GROUND_HEIGHT)
 
-enemies : list[Enemy] = [] 
+cactuses : list[Enemy] = [] 
+flying_enemies : list[FlyingEnemy] = []
 
 spawner = EventEnemySpawner()
 
