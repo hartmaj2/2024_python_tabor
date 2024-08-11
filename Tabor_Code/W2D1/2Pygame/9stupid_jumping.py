@@ -11,7 +11,7 @@ player_surf.fill("Red")
 player_rect = player_surf.get_rect() 
 player_rect.center = (150,150)
 
-# TODO: Naimplementuj hloupou gravitaci: kazdy moment hraci uber trochu z jeho pozice, 
+# TODO: naimplementuj hloupou gravitaci: kazdy moment hraci pridej k jeho y pozici (tim bude jakoby padat)
 
 # TODO: naimplementuj skok tim, ze hrace teleportujes o neco vys
 # HINT: budeme chtit registrovat event aby se teleportoval jen jednou

@@ -38,21 +38,32 @@ player_rect.midbottom = (400,300)
 # HINT: pouzij player_rect.collidepoint()
 # HINT: souradnice mysi ziskas pomoci pygame.mouse.get_pos()
 
+score_text_surf = font.render("Score: 0",True,"black")
+score_text_rect = score_text_surf.get_rect()
+score_text_rect.midtop = (WIDTH/2,20)
+
+score = 0
+
 while True:
     for event in pygame.event.get(): # pygame.event.get() vrati seznam eventu
         if event.type == pygame.QUIT: 
             pygame.quit()
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            ...
+            if player_rect.collidepoint(pygame.mouse.get_pos()):
+                score += 1
+                score_text_surf = font.render(f"Score {score}",True,"black")
+                player_rect.center = (random.randint(0,WIDTH),random.randint(0,HEIGHT))
 
     screen.blit(background,(0,0))
     screen.blit(ground,(0,300))
 
     screen.blit(player_surf,player_rect)
 
+    screen.blit(score_text_surf,score_text_rect)
+
     pygame.display.flip() 
-    clock.tick(60)
+    clock.tick(60) # ZADRZDI PROGRAM NA DOBU, KTERA ODPOVIDA 60 FPS (cca 16.6 ms)
 
 # BONUS TODO: nakresli caru z leveho horniho rohu do praveho dolniho pomoci pygame.draw.neco kde neco si vyhledej v dokumentaci
 # dokumentace: https://www.pygame.org/docs/

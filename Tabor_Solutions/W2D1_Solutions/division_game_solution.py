@@ -5,7 +5,7 @@ import random
 points = 0
 limit = 0.3
 print("Welcome to the Division Game!")
-print("You will play until you get 1 point.\n")
+print("You will play until you get 0.3 points.\n")
 while points < limit:
     num2 = random.randint(0,10)
     correct_answer = random.randint(0,10)

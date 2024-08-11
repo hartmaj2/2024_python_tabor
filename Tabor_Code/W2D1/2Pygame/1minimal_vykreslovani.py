@@ -8,7 +8,6 @@ surface = pygame.Surface((200,100)) # 1. VYTVORIME SURFACE
 
 # TODO: Zmen barvu surface na nejakou jinou
 # HINT: surface.fill(barva)
-surface.fill("Cyan")
 
 # TODO zmen kod aby vykreslil surface do leveho dolniho rohu
 # HINT: screen.blit(koho,kam)

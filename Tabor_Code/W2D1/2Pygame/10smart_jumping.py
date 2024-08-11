@@ -11,14 +11,15 @@ player_surf.fill("Red")
 player_rect = player_surf.get_rect() 
 player_rect.center = (150,150)
 
-# TODO: Naimplementuj chytrou gravitaci: budeme potrebovat promennou pro hracovu rychlost letu
-# pojmenuj ji treba speed_y
-
-# TODO: skok naimplementujeme tak, ze nastavime hracovu speed_y na nejakou pevnou hodnotu (treba 5) vzdy, kdyz stiskneme sipku nahoru
+# TODO: naimplementuj chytrou (s rychlosti padu, ktera se meni v case) gravitaci: 
+# #budeme potrebovat promennou pro hracovu rychlost letu pojmenuj ji treba speed_y
 
 # TODO: gravitace v kazdem tiknuti cyklu ukousne pevne danou hodnotu z jeho speed_y
 
-# TODO: ted uz staci jen vzdy menit y pozici hrace o speed_y
+# TODO: aby hrac padal, tak staci jen vzdy menit y pozici hrace o speed_y
+# (zkus si hrace posadit uplne nahoru a nechat ho padat)
+
+# TODO: skok naimplementujeme tak, ze nastavime hracovu speed_y na nejakou pevnou hodnotu (treba 5) vzdy, kdyz stiskneme sipku nahoru
 
 while True:
     for event in pygame.event.get():

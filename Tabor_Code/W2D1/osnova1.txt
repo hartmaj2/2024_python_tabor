@@ -43,4 +43,20 @@ todo:
     - muzu si urcit, kam ho budu chtit nakreslit: screen.blit(koho,kam)
         (!) POZOR: tim se postavicka hned nenakresli, akorat se naplanuje, kam ji budeme chtit nakreslit
     - nakreslit naplanovane: pygame.display.flip()
+
+4.3 pohyb - staci hybat pozici, na kterou blitujeme surface (texturu)
+    - vstup od uzivatele - proc nepouzivame input() ?
+        - input() nam zablokuje smycku
+        - potrebujeme neblokujici zpusob
+    - smycka bezi na kazdem pocitaci jinak rychle
+
+4.4 clock 
+    - srovna rozdil mezi pocitaci - zadrzi smycku, pokud bezi moc rychle
+        - pokud smycka bezi moc pomalu, tak mame smulu
+
+4.5 rectangles
+    - daji se ziskat pro dany surface
+        - umoznuji lepe umistovat veci (muzeme rict, kde bude midbottom, center atd.)
+        - rectangles navzajem dokazi detekovat kolize
+        - dokazi take detekovat kolize s mysi
     

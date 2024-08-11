@@ -1,3 +1,5 @@
+#  TEST NUM KEYS
+
 import pygame
 
 pygame.init()

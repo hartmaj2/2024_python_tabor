@@ -13,7 +13,7 @@ player_rect.center = (150,150)
 
 # TODO: pohybuj hracem pomoci sipek (vytvoris promennou keys = pygame.key.get_pressed())
 # tim ziskas seznam, ve kterem je True / False pro pozici odpovidajici klavesy
-# pozice muzes ziskat pomoci pygame.K_UP atd.
+# odpovidajici pozice klaves v seznamu muzes ziskat pomoci pygame.K_UP atd.
 
 while True:
     for event in pygame.event.get():
