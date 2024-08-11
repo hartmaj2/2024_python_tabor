@@ -59,4 +59,24 @@ todo:
         - umoznuji lepe umistovat veci (muzeme rict, kde bude midbottom, center atd.)
         - rectangles navzajem dokazi detekovat kolize
         - dokazi take detekovat kolize s mysi
-    
+
+4.6 text 
+    - je potreba vytvorit si font - pygame.font.Font(None,velikost)
+    - surface s textem v danem fontu lze vytvaret pomoci metody render(text,True,barva)
+
+4.7 klavesy
+    - zda uzivatel zrovna drzi klavesu lze kontrolovat pomoci seznamu True/False hodnot
+        - pygame.key.get_pressed()
+    - potom se zeptame zda keys[index_klavesy] == True
+
+4.8 mys
+    - event na kliknuti: event.type == pygame.MOUSEBUTTONDOWN
+    - pygame.mouse.get_pos() a rectangle.collidepoint(point_coordinate)
+
+4.9 spawnovani nepratel
+    - nepratele si ulozime do seznamu
+    - pote muzeme prochazet vzdy vsechny a hybat s nimi / vykreslovat je
+
+4.10 vlastni casove intervaly 
+    - vygenerujeme si event.type cislo -> pygame.event.custom_type()
+    - poprosime pygame aby nam generoval event v danem intervalu -> pygame.time.set_timer(event_no,interval)

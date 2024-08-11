@@ -15,7 +15,7 @@ player = pygame.transform.flip(player,True,False)
 # TODO: co se stane kdyz je das oba na stejne misto?
 
 while True:
-    for event in pygame.event.get(): # pygame.event.get() vrati seznam eventu
+    for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             pygame.quit()
             exit()
