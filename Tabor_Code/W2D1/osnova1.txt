@@ -6,5 +6,41 @@ todo:
         - nekdy se hodi si veci moci naklikat - kudy budou chodit nepratele, herni mapa atd.
     snimky (FPS) - film vs hrac
     herni smycka
+    pygame
     kolize
+
+1. Jak se tvori hry v praxi?
+    (a) Zna nekdo nejaky herni engine? Unity, Unreal Engine, Godot
+    (b) Proc se pouzivaji herni enginy?
+    (c) Priklad s Godotem a mou hrou 
+        - otevrit mou scenu, zneviditelnit pause menu a canvas modulate
+        - ukazat, jak se daji naklikat cesty nepratel; kam se pise kod postavy
+
+2. Co je to FPS?
+    - snimky za sekundu
+    - vedi, kolik FPS ma mit hra/film?
+
+3. Herni smycka 
+    - while True loop, ktery bezi, dokud bezi hra
+    (a) reagovat na udalosti - kliknuti mysi, pokus o zavreni okna
+    (b) aktualizovat pozice hracu, zkontrolovat kolize (zde se take bere v potaz, zda hrac drzi tlacitko ci ne)
+    (c) vykreslit postupne vsechny postavy na obrazovku
+
+4. pygame
+    - neposkytuje moznost vyrabet mapu klikanim, nema vizualni rozhrani
+    - lepe se ale naucime programovat
+
+4.1 minimal code
+    (a) potrebujeme import pygame
+    (b) inicializovat pygame: pygame.init()
+    (c) zalozit promennou pro obrazovku: screen = pygame.display.set_mode((sirka,vyska))
+    (d) nekonecnou smycku
+    (c) v nekonecne smycce for loop pres eventy
+
+4.2 surface - je to vlastne textura pro postavu, na kterou muzu neco malovat/dat na ni obrazek
+    - muzu ho zaplnit barvou
+    - pygame mi take umoznuje vyrobit surface z obrazku: pygame.image.load(cesta)
+    - muzu si urcit, kam ho budu chtit nakreslit: screen.blit(koho,kam)
+        (!) POZOR: tim se postavicka hned nenakresli, akorat se naplanuje, kam ji budeme chtit nakreslit
+    - nakreslit naplanovane: pygame.display.flip()
     
