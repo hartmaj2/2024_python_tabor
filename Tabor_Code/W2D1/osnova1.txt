@@ -1,6 +1,7 @@
-TOPIC: vyvoj her
+TOPIC: funkce, vyvoj her
 
 todo:
+    opacko funkci
     herni enginy
         - nechceme muset vyrabet neco, co uz existuje (fyzika, gravitace)
         - nekdy se hodi si veci moci naklikat - kudy budou chodit nepratele, herni mapa atd.
@@ -8,6 +9,14 @@ todo:
     herni smycka
     pygame
     kolize
+
+0. funkce 
+    - jak nejlepe udelat program stavebni firma
+    - vyhoda funkci: 
+        (1) zlomyslny zakaznik nas nezastavi 
+        (2) vice lidi muze zaroven pracovat na kodu
+        (bonus) ukazat, ze by to slo dat do vice souboru + import
+    - demo funkci s parametry + return, UKAZAT V THONNY
 
 1. Jak se tvori hry v praxi?
     (a) Zna nekdo nejaky herni engine? Unity, Unreal Engine, Godot
@@ -80,3 +89,5 @@ todo:
 4.10 vlastni casove intervaly 
     - vygenerujeme si event.type cislo -> pygame.event.custom_type()
     - poprosime pygame aby nam generoval event v danem intervalu -> pygame.time.set_timer(event_no,interval)
+
+5. bonus: debuggovani
