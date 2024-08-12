@@ -1,0 +1,39 @@
+TOPIC: funkce, vyvoj her
+
+todo:
+    funkce: demo + cviceni
+    pygame opacko: eventy, surface, rectangle
+
+0. funkce 
+    - demo funkci s parametry + return, UKAZAT V THONNY
+    - rozcvicka na funkce - madarska dan, muzu na pivo
+
+1. opakovani
+    - event?
+    - surface?
+    - rectangle?
+    - screen a blitovani
+
+2.0 stavy hry
+    - obrazovky - menu, ruzne_levely
+
+2.1 text 
+    - je potreba vytvorit si font - pygame.font.Font(None,velikost)
+    - surface s textem v danem fontu lze vytvaret pomoci metody render(text,True,barva)
+    -> vypisovani skore
+
+2.2 mys
+    - event na kliknuti: event.type == pygame.MOUSEBUTTONDOWN
+    - pygame.mouse.get_pos() a rectangle.collidepoint(point_coordinate)
+
+2.3 spawnovani nepratel
+    - nepratele si ulozime do seznamu
+    - pote muzeme prochazet vzdy vsechny a hybat s nimi / vykreslovat je
+
+2.4 vlastni casove intervaly 
+    - vygenerujeme si event.type cislo -> pygame.event.custom_type()
+    - poprosime pygame aby nam generoval event v danem intervalu -> pygame.time.set_timer(event_no,interval)
+
+5. prace se soubory - ukladani highscore do souboru
+
+6. bonus: debuggovani
