@@ -1,0 +1,47 @@
+TOPIC: 
+    (a) organizace herni smycky pomoci funkci
+    (b) text 
+    (c) reakce na kliknuti (eventy)
+    (d) cteni/psani ze/do souboru
+
+todo:
+    funkce: prepsat asteroidy do funkci 
+    pygame opacko:
+
+0. pygame opakovani
+    (a) spawnovani vice nepratel - co je potreba udelat?
+    (b) casovani intervalu - jak muzu delat neco v pravidelnych intervalech?
+
+1. funkce 
+    (a) rozcvicka na funkce - prepsat asteroid kod na update,draw,spawn atd.
+        - zkusi si sami rozmyslet, jake funkce by davali smysl, pak spolecne reknu mozne reseni
+
+2. rozcvicka na precteni neceho ze souboru a zapsani neceho dalsiho
+    - vytvorit deset souboru a napsat do nich neco z prvniho souboru
+
+3 pygame
+3.1 text 
+    - je potreba vytvorit si font - pygame.font.Font(None,velikost)
+    - surface s textem v danem fontu lze vytvaret pomoci metody render(text,True,barva)
+    -> vypisovani skore
+
+3.2 mys
+    - event na kliknuti: event.type == pygame.MOUSEBUTTONDOWN
+    - pygame.mouse.get_pos() a rectangle.collidepoint(point_coordinate)
+
+3.3 prace se soubory v kontextu pygame - ukladani highscore do souboru
+    - treba clicker? (nemusi byt highscore ale ulozi se max score)
+    - napred zkusit jen nacist udaje od uzivatele a ty nahrat do souboru
+    - neco precist ze souboru
+
+3.4 herni stavy a buttonky
+    - pridat startovni/restartove menu 
+    - mozna pridat pause screen
+
+6. bonus: debuggovani
+
+7. Napady:
+    (a) strileni v pygame
+    (b) jak nakreslit snake grid
+    (c) hybat se po snake grid a sbirat jablicka
+
