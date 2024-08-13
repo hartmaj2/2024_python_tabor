@@ -1,8 +1,3 @@
-# DEMO WHY YOU SHOULD DELETE CHARACTERS THAT ARE OUT OF SCREEN
-# (1) we create 250 000 (1/4 million) flys at the edge of the screen
-# (2) you can see the number of flys on the screen
-# (3) press space to delete all except 100 last flys in the list
-
 import pygame
 
 pygame.init() 
