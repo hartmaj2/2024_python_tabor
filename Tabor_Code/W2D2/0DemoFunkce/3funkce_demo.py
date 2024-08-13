@@ -2,6 +2,21 @@
 # na prikazu print("Zacatek"). Hodne ti to pomuze v pochopeni funkci.
 print("Zacatek")
 
+# funkce tisknouci pravidla
+def tiskni_pravidla_hry():
+    print("Pravidla hry:")
+    print("1. Hra začíná hodem kostkou.")
+    print("2. Každý hráč hází kostkou jednou za kolo.")
+    print("3. Hráč s nejvyšším součtem bodů po 10 kolech vyhrává.")
+    print("4. Pokud padne šestka, hráč hází znovu.")
+    print("5. Hra končí, když někdo dosáhne 100 bodů.")
+    print("6. Hrajte férově a bavte se!")
+
+# Zavolej funkci, aby se vytiskla pravidla hry
+tiskni_pravidla_hry()
+tiskni_pravidla_hry()
+tiskni_pravidla_hry()
+
 # jednoducha funkce
 def press_enter():
     print("Ahoj")

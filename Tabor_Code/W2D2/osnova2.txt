@@ -14,8 +14,10 @@ todo:
     - rectangle?
     - screen a blitovani
 
-2.0 stavy hry
-    - obrazovky - menu, ruzne_levely
+1.1 rozcvicka 
+    - health_pack 
+    - stupidni skok - aby mohl hrac preskocit snaila
+    - ukladani highscore
 
 2.1 text 
     - je potreba vytvorit si font - pygame.font.Font(None,velikost)
@@ -35,5 +37,8 @@ todo:
     - poprosime pygame aby nam generoval event v danem intervalu -> pygame.time.set_timer(event_no,interval)
 
 5. prace se soubory - ukladani highscore do souboru
+    - treba clicker? (nemusi byt highscore ale ulozi se max score)
+    - napred zkusit jen nacist udaje od uzivatele a ty nahrat do souboru
+    - neco precist ze souboru
 
 6. bonus: debuggovani

@@ -29,5 +29,5 @@ print(vaha_na_mesici(50))
 # TODO: Zavolej funkci na hodnotach od uzivatele a podle
 # vysledku funkce muzu_na_pivo(vek,zeme) mu vypis bud
 # ze ma smulu nebo at klidne zajde na pivo, ale at se moc neozere
-vek = int(input("Zadej svuj vek: "))
-zeme = input("Zadej svou zemi: ")
+# vek = int(input("Zadej svuj vek: "))
+# zeme = input("Zadej svou zemi: ")

@@ -10,7 +10,7 @@ clock = pygame.time.Clock() # 1. PRIDAME CLOCK OBJEKT, KTERY MA FUNKCI, KTEROU P
 
 # TODO: vytvor si objekt pro defaultni font velikosti 50
 # HINT: pygame.font.Font(None,velikost)
-font = pygame.font.Font(None,50)
+
 
 background = pygame.image.load("Tabor_Code/W2D1/graphics/Sky.png")
 ground = pygame.image.load("Tabor_Code/W2D1/graphics/ground.png")
@@ -26,7 +26,7 @@ player_rect.midbottom = (400,300)
 
 # TODO: Vykresli text na obrazovku
 
-# TODO: Vytvor si promennou na pocitani skore (score bude pozdeji pocet kliknuti na hrace)
+# TODO: Vytvor si promennou na pocitani skore (score bude pozdeji pocet kliknuti na obrazovku)
 
 # TODO: Zvysuj hraci skore vzdy, kdyz klikne mysi na obrazovku
 # HINT: nastane event s event.type == pygame.MOUSEBUTTONDOWN
