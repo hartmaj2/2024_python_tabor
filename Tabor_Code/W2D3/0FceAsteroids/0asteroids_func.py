@@ -93,5 +93,3 @@ while True:
     pygame.display.flip() 
     clock.tick(60)
     
-    # TODO: stupid jumping - naprogramuj hrace, aby pri stisknuti klavesy "w" vyskocil
-    # skok budeme delat tak, ze hrace proste teleportujeme o 150 pixelu vys

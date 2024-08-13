@@ -30,14 +30,14 @@ fly_surf = pygame.image.load("Tabor_Code/W2D1/graphics/Fly/Fly1.png")
 # TODO: Napiseme si funkce pro nacteni highscore a zapsani highscore do souboru
 # Funkce pojmenujeme treba nacti_highscore() a uloz_highscore()
 
-def zmen_score_text(score):
+def update_score_text(score):
     global score_text_surf, score_text_rect
     score_text_surf = font.render("Score: " + str(score),True,"Black")  
     score_text_rect = score_text_surf.get_rect()
     score_text_rect.topright = (WIDTH-10,10)
     
 
-def zmen_highscore_text(highscore):
+def update_highscore_text(highscore):
     global highscore_text_surf, highscore_text_rect
     highscore_text_surf = font.render("Highscore: " + str(highscore),True,"black")
     highscore_text_rect = highscore_text_surf.get_rect()
@@ -54,42 +54,52 @@ highscore = 0
 # Vyzkousej, ze se ti meni opravdu i highscore
 
 
-flys = [] 
+flys : list[pygame.Rect] = [] 
+fly_speed = 10
 
 def spawn_fly(position):
     fly_rect = fly_surf.get_rect()
     fly_rect.center = position
     flys.append(fly_rect)
 
+def draw_everything():
+    screen.blit(background,(0,0))
+    screen.blit(ground,(0,300))
+    screen.blit(score_text_surf,score_text_rect)
+    screen.blit(highscore_text_surf,highscore_text_rect)
+    for fly_rect in flys:
+        screen.blit(fly_surf,fly_rect)
+    screen.blit(player_surf,player_rect)
 
+def update_flys():
+    global flys, fly_speed
+    for fly_rect in flys:
+        fly_rect.x += fly_speed
+        if fly_rect.left > WIDTH:
+            flys.remove(fly_rect)
+
+def react_to_mousedown():
+    global player_rect, score
+    last_mouse_pos = pygame.mouse.get_pos()
+    if player_rect.collidepoint(last_mouse_pos):
+        spawn_fly(player_rect.center)
+        score += 1
 
 while True:
     for event in pygame.event.get(): # pygame.event.get() vrati seznam eventu
         if event.type == pygame.QUIT: 
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            last_mouse_pos = pygame.mouse.get_pos()
-            if player_rect.collidepoint(last_mouse_pos):
-                spawn_fly(player_rect.center)
-                score += 1
+            react_to_mousedown()
     
+    update_score_text(score)
+    update_highscore_text(highscore)
+    update_flys()
 
-    zmen_score_text(score)
-    zmen_highscore_text(highscore)
-    
-    screen.blit(background,(0,0))
-    screen.blit(ground,(0,300))
-    screen.blit(score_text_surf,score_text_rect)
-    screen.blit(highscore_text_surf,highscore_text_rect)
+    draw_everything()
 
-    for fly_rect in flys:
-        fly_rect.x += 10
-        screen.blit(fly_surf,fly_rect)
-
-    screen.blit(player_surf,player_rect)
-    
     pygame.display.flip() 
-    clock.tick(60) # ZADRZDI PROGRAM NA DOBU, KTERA ODPOVIDA 60 FPS (cca 16.6 ms)
+    clock.tick(60)
     
 # BONUS TODO: kresli caru vzdy mezi misi a pozici posledniho kliknuti
 # HINT: nejprve zkus kreslit z jednoho rohu k misi ( pygame.mouse.get_pos() )
