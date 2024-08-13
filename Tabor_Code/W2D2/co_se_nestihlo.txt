@@ -1,0 +1,8 @@
+1. asteroidy
+    (a) prepsat kod hezky do funkci
+    (b) nepouzivat konkretni hodnoty pro polohu, ale spocitat si je pomoci
+        HEIGHT a WIDTH (napada nekoho, proc je to dulezite?)
+        (jen u hracovi pocatecni x souradnice)
+    (c) vypisovat skore
+    (d) reagovat na kliknuti a buttonky
+    (e) ukladat highscore
