@@ -2,7 +2,7 @@
 # K cemu nam jsou? 
 # Tridy jsou jako planek, podle ktereho muzeme stavet jednotlive objekty.
 # Trida NPC napriklad rika, ze kazdy NPC ma jmeno, zdravi a utok
-# Trida Hrac pak muze 
+# Trida Hrac pak muze pridavat jeste veci jako inventar atd.
 
 import random
 #   1. abychom nemeli tunu promennuych rozhazenych po programu, souvisle celky maji spolecny kod
