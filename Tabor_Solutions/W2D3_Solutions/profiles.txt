@@ -1,0 +1,4 @@
+Nickname,Class,Level,HP,MP,Items
+mandalore195,Warrior,20,150,30,Sword of Valor; Shield of Eternity; Iron Armor
+boreczech123,Mage,18,100,200,Staff of Wisdom; Robe of the Magi; Ring of Mana
+inventrix14,Archer,15,120,50,Bow of the Swift; Quiver of Endless Arrows; Leather Boots

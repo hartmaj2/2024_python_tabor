@@ -8,6 +8,12 @@ todo:
     funkce: prepsat asteroidy do funkci 
     pygame opacko:
 
+-1. ukazat mozne projekty 
+    (a) zombici ve scratchi
+    (b) snake
+    (c) t-rex
+    (d) neco jineho vlastniho
+
 0. pygame opakovani
     (a) spawnovani vice nepratel - co je potreba udelat?
     (b) casovani intervalu - jak muzu delat neco v pravidelnych intervalech?

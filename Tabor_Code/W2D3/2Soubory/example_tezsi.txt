@@ -1,0 +1,12 @@
+Nickname: mandalore195
+Class: Warrior
+Level: 20
+
+Stats:
+HP: 150
+MP: 30
+
+Items:
+- Sword of Valor
+- Shield of Eternity
+- Iron Armor
