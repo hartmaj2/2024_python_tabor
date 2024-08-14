@@ -1,0 +1,34 @@
+TOPIC: vlastni projekty
+
+todo: 
+    - hodi se trida sprite, neco o classach na uvod
+    - vlastni projekty - vytvorit tymy, naplanovat si tema
+
+asteroids:
+    (0) add shot class
+        - shot will be a surface with fill 
+        - !!! conver_alpha() IS NECESSARY
+    (a) add direction to shots
+        - first point to mouse using atan2 (radians)
+        - then update speed in direction using sin and cos (radians)
+    (b) rotate pictures using the direction (transform.rotate is in degrees!)
+    (c) add enemy class
+        - walks from left to right
+        - shoot after random interval
+    (d) add score
+        - create class for score text
+    (e) add highscore
+        - add file with highscore
+        - read from file at start of game
+        - write to file when game over
+        - update highscore if score is greater
+
+TODO:
+    (1) add levels 
+        - add classes for spawning
+        - create spawn group
+        - increasing asteroid spawn rate/speed
+        - increase enemy spawn rate
+    
+    
+
