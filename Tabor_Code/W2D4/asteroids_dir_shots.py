@@ -66,9 +66,9 @@ class GameManager:
     def update_level():
         global score,level
         for i in range(len(GameManager.level_scores)):
-            if score >= GameManager.level_scores[i]:
+            if score < GameManager.level_scores[i]:
                 break
-        level = i
+        level = i - 1
 
 def get_dir_to_mouse(x,y):
     mx,my = pygame.mouse.get_pos()
@@ -195,10 +195,20 @@ class ScoreText(pygame.sprite.Sprite):
         super().__init__()
     
     def update(self):
-        global game_start_time, score
+        global score
         self.image = font.render(f"Score: {score}",True,"white")
         self.rect  = self.image.get_rect()
         self.rect.topright = (width-10,10)
+
+class LevelText(pygame.sprite.Sprite):
+    def __init__(self): 
+        super().__init__()
+    
+    def update(self):
+        global level
+        self.image = font.render(f"Level: {level}",True,"white")
+        self.rect  = self.image.get_rect()
+        self.rect.topleft = (10,10)
 
 class HighscoreText(pygame.sprite.Sprite):
     def __init__(self): 
@@ -234,7 +244,7 @@ class QuitGameText(pygame.sprite.Sprite):
 
 player_group = pygame.sprite.GroupSingle(Player())
 running_text_group = pygame.sprite.Group()
-running_text_group.add(ScoreText())
+running_text_group.add(ScoreText(),LevelText())
 game_over_text_group = pygame.sprite.Group()
 game_over_text_group.add(HighscoreText(),RestartGameText(),GameOverText(),QuitGameText())
 
