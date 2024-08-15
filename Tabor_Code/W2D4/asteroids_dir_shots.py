@@ -41,7 +41,7 @@ class FileManager:
 
 class GameManager:
 
-    level_scores = [0,5,10,12,14]
+    level_scores = [0,5,10,12,14,20]
 
     state_running = 0
     state_game_over = 1
@@ -244,8 +244,8 @@ class QuitGameText(pygame.sprite.Sprite):
 
 class Spawner(pygame.sprite.Sprite):
 
-    asteroid_spawn_intervals = [3000,2000,1000,500,300]
-    enemy_spawn_intervals = [10000,7000,5000,4000,2000]
+    asteroid_spawn_intervals = [3000,2000,1000,500,300,100]
+    enemy_spawn_intervals = [10000,7000,5000,4000,2000,1000]
 
     def __init__(self):
         global level
