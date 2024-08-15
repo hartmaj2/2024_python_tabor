@@ -41,7 +41,7 @@ class FileManager:
 
 class GameManager:
 
-    level_scores = [0,10,20,40,80]
+    level_scores = [0,5,10,12,14]
 
     state_running = 0
     state_game_over = 1
@@ -76,7 +76,6 @@ def get_dir_to_mouse(x,y):
 
 def get_dir_to_pos(start_rect : pygame.Rect ,goal_rect : pygame.Rect):
     return math.atan2(goal_rect.centery-start_rect.centery,goal_rect.centerx-start_rect.centerx)
-
 
 
 class Player(pygame.sprite.Sprite):
@@ -241,7 +240,38 @@ class QuitGameText(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (width/2,height/2+120)
 
+class Spawner(pygame.sprite.Sprite):
 
+    asteroid_spawn_intervals = [3000,2000,1000,500,300]
+    enemy_spawn_intervals = [10000,7000,5000,4000,2000]
+
+    def __init__(self):
+        global level
+        super().__init__()
+        self.next_asteroid_spawn_time = pygame.time.get_ticks() + Spawner.asteroid_spawn_intervals[level]
+        self.next_enemy_spawn_time = pygame.time.get_ticks() + Spawner.enemy_spawn_intervals[level]
+
+    def try_spawn_asteroid(self):
+        global level
+        if pygame.time.get_ticks() > self.next_asteroid_spawn_time:
+            randomness = Spawner.asteroid_spawn_intervals[level] // 2
+            self.next_asteroid_spawn_time = pygame.time.get_ticks() + Spawner.asteroid_spawn_intervals[level] + random.randint(-randomness,randomness) 
+            asteroid_group.add(Asteroid())
+
+    def try_spawn_enemy(self):
+        global level
+        randomness = Spawner.enemy_spawn_intervals[level] // 2
+        if pygame.time.get_ticks() > self.next_enemy_spawn_time:
+            self.next_enemy_spawn_time = pygame.time.get_ticks() + Spawner.enemy_spawn_intervals[level] + random.randint(-randomness,randomness) 
+            enemy_group.add(Enemy())
+
+    def update(self):
+        self.try_spawn_asteroid()
+        self.try_spawn_enemy()
+    
+    
+
+spawner_group = pygame.sprite.GroupSingle(Spawner())
 player_group = pygame.sprite.GroupSingle(Player())
 running_text_group = pygame.sprite.Group()
 running_text_group.add(ScoreText(),LevelText())
@@ -289,6 +319,7 @@ while True:
         enemy_shot_group.update()
         enemy_group.update()
         running_text_group.update()
+        spawner_group.update()
 
         screen.fill("black")
         player_group.draw(screen)
