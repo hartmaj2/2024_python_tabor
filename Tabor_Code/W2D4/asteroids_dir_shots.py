@@ -13,10 +13,6 @@ font = pygame.font.Font("Tabor_Code/W2D1/font/Pixeltype.ttf",50)
 
 game_state = "running"
 
-
-
-
-
 spawn_event = pygame.event.custom_type()
 pygame.time.set_timer(spawn_event,1000)
 
@@ -27,19 +23,20 @@ enemy_group = pygame.sprite.Group()
 game_start_time = 0
 highscore = 0
 
-def load_highscore():
-    global highscore
-    file = open("Tabor_Code/W2D4/ast_highscore.txt","r")
-    data = file.readline()
-    if data != "":
-        highscore = int(data)
-    file.close()
+class FileManager:
+    def load_highscore():
+        global highscore
+        file = open("Tabor_Code/W2D4/ast_highscore.txt","r")
+        data = file.readline()
+        if data != "":
+            highscore = int(data)
+        file.close()
 
-def save_highscore():
-    global highscore
-    file = open("Tabor_Code/W2D4/ast_highscore.txt","w")
-    file.write(str(highscore))
-    file.close()
+    def save_highscore():
+        global highscore
+        file = open("Tabor_Code/W2D4/ast_highscore.txt","w")
+        file.write(str(highscore))
+        file.close()
 
 def get_dir_to_mouse(x,y):
     mx,my = pygame.mouse.get_pos()
@@ -193,7 +190,6 @@ class HighscoreText(pygame.sprite.Sprite):
         self.rect  = self.image.get_rect()
         self.rect.midbottom = (width/2,height/2-50)
     
-
 class GameOverText(pygame.sprite.Sprite):
     def __init__(self): 
         super().__init__()
@@ -201,7 +197,6 @@ class GameOverText(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (width/2,height/2)
     
-
 class RestartGameText(pygame.sprite.Sprite):
     def __init__(self): 
         super().__init__()
@@ -217,7 +212,6 @@ class QuitGameText(pygame.sprite.Sprite):
         self.rect.center = (width/2,height/2+120)
 
 
-
 player_group = pygame.sprite.GroupSingle(Player())
 running_text_group = pygame.sprite.Group()
 running_text_group.add(ScoreText())
@@ -225,12 +219,12 @@ game_over_text_group = pygame.sprite.Group()
 game_over_text_group.add(HighscoreText(),RestartGameText(),GameOverText(),QuitGameText())
 
 
-load_highscore()
+FileManager.load_highscore()
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            save_highscore()
+            FileManager.save_highscore()
             pygame.quit()
             exit()
         if game_state == "game over":
@@ -240,7 +234,7 @@ while True:
                     reset_game()
                     game_state = "running"
                 if keys[pygame.K_q]:
-                    save_highscore()
+                    FileManager.save_highscore()
                     pygame.quit()
                     exit()
         if game_state == "running":
