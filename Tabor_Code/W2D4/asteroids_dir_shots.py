@@ -64,11 +64,13 @@ class GameManager:
             highscore = score 
 
     def update_level():
-        global score,level
+        global score
+        # if score > GameManager.level_scores[len(GameManager.level_scores)-1]:
+        #     return len(GameManager.level_scores)-1
         for i in range(len(GameManager.level_scores)):
             if score < GameManager.level_scores[i]:
-                break
-        level = i - 1
+                return i - 1
+        return i
 
 def get_dir_to_mouse(x,y):
     mx,my = pygame.mouse.get_pos()
@@ -311,7 +313,7 @@ while True:
     if game_state == GameManager.state_running:  
 
         GameManager.update_score()
-        GameManager.update_level()      
+        level = GameManager.update_level()      
 
         asteroid_group.update()
         player_group.update()
