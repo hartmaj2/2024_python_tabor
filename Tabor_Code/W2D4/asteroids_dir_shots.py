@@ -11,8 +11,6 @@ clock = pygame.time.Clock()
 
 font = pygame.font.Font("Tabor_Code/W2D1/font/Pixeltype.ttf",50)
 
-
-
 spawn_event = pygame.event.custom_type()
 pygame.time.set_timer(spawn_event,1000)
 
@@ -22,6 +20,9 @@ enemy_shot_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 game_start_time = 0
 highscore = 0
+score = 0
+level = 0
+
 
 class FileManager:
     def load_highscore():
@@ -40,6 +41,8 @@ class FileManager:
 
 class GameManager:
 
+    level_scores = [0,10,20,40,80]
+
     state_running = 0
     state_game_over = 1
 
@@ -53,6 +56,19 @@ class GameManager:
         global game_start_time
         game_start_time = pygame.time.get_ticks()
         GameManager.clear_groups()
+    
+    def update_score():
+        global score, highscore
+        score = int((pygame.time.get_ticks() - game_start_time) / 1000)
+        if score > highscore:
+            highscore = score 
+
+    def update_level():
+        global score,level
+        for i in range(len(GameManager.level_scores)):
+            if score >= GameManager.level_scores[i]:
+                break
+        level = i
 
 def get_dir_to_mouse(x,y):
     mx,my = pygame.mouse.get_pos()
@@ -179,10 +195,7 @@ class ScoreText(pygame.sprite.Sprite):
         super().__init__()
     
     def update(self):
-        global game_start_time, highscore
-        score = int((pygame.time.get_ticks() - game_start_time) / 1000)
-        if score > highscore:
-            highscore = score 
+        global game_start_time, score
         self.image = font.render(f"Score: {score}",True,"white")
         self.rect  = self.image.get_rect()
         self.rect.topright = (width-10,10)
@@ -255,7 +268,10 @@ while True:
                 if keys[pygame.K_e]:
                     enemy_group.add(Enemy())
 
-    if game_state == GameManager.state_running:        
+    if game_state == GameManager.state_running:  
+
+        GameManager.update_score()
+        GameManager.update_level()      
 
         asteroid_group.update()
         player_group.update()
