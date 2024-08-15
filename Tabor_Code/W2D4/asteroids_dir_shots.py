@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 font = pygame.font.Font("Tabor_Code/W2D1/font/Pixeltype.ttf",50)
 
-game_state = "running"
+
 
 spawn_event = pygame.event.custom_type()
 pygame.time.set_timer(spawn_event,1000)
@@ -38,6 +38,22 @@ class FileManager:
         file.write(str(highscore))
         file.close()
 
+class GameManager:
+
+    state_running = 0
+    state_game_over = 1
+
+    def clear_groups():
+        asteroid_group.empty()
+        enemy_group.empty()
+        enemy_shot_group.empty()
+        player_shot_group.empty()
+
+    def reset_game():
+        global game_start_time
+        game_start_time = pygame.time.get_ticks()
+        GameManager.clear_groups()
+
 def get_dir_to_mouse(x,y):
     mx,my = pygame.mouse.get_pos()
     return math.atan2(my-y,mx-x)
@@ -45,16 +61,7 @@ def get_dir_to_mouse(x,y):
 def get_dir_to_pos(start_rect : pygame.Rect ,goal_rect : pygame.Rect):
     return math.atan2(goal_rect.centery-start_rect.centery,goal_rect.centerx-start_rect.centerx)
 
-def clear_groups():
-    asteroid_group.empty()
-    enemy_group.empty()
-    enemy_shot_group.empty()
-    player_shot_group.empty()
 
-def reset_game():
-    global game_start_time
-    game_start_time = pygame.time.get_ticks()
-    clear_groups()
 
 class Player(pygame.sprite.Sprite):
 
@@ -87,7 +94,7 @@ class Player(pygame.sprite.Sprite):
             player_shot_group.add(Shot(self.rect.center,dir,"cyan"))
             self.next_shot_time = pygame.time.get_ticks() + Player.shot_interval
         if pygame.sprite.groupcollide(player_group,enemy_shot_group,False,False):
-            game_state = "game over"
+            game_state = GameManager.state_game_over
 
 class Asteroid(pygame.sprite.Sprite):
 
@@ -117,7 +124,7 @@ class Asteroid(pygame.sprite.Sprite):
         if self.rect.top > height:
             self.kill()
         if pygame.sprite.groupcollide(asteroid_group,player_group,False,False,pygame.sprite.collide_circle_ratio(0.5)):
-            game_state = "game over"
+            game_state = GameManager.state_game_over
 
 class Shot(pygame.sprite.Sprite):
 
@@ -218,26 +225,29 @@ running_text_group.add(ScoreText())
 game_over_text_group = pygame.sprite.Group()
 game_over_text_group.add(HighscoreText(),RestartGameText(),GameOverText(),QuitGameText())
 
-
+game_state = GameManager.state_running
 FileManager.load_highscore()
 
 while True:
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             FileManager.save_highscore()
             pygame.quit()
             exit()
-        if game_state == "game over":
+
+        if game_state == GameManager.state_game_over:
             if event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_r]:
-                    reset_game()
-                    game_state = "running"
+                    GameManager.reset_game()
+                    game_state = GameManager.state_running
                 if keys[pygame.K_q]:
                     FileManager.save_highscore()
                     pygame.quit()
                     exit()
-        if game_state == "running":
+
+        if game_state == GameManager.state_running:
             if event.type == spawn_event:
                 asteroid_group.add(Asteroid())
             if event.type == pygame.KEYDOWN:
@@ -245,7 +255,7 @@ while True:
                 if keys[pygame.K_e]:
                     enemy_group.add(Enemy())
 
-    if game_state == "running":        
+    if game_state == GameManager.state_running:        
 
         asteroid_group.update()
         player_group.update()
@@ -262,7 +272,7 @@ while True:
         enemy_group.draw(screen)
         running_text_group.draw(screen)
     
-    elif game_state == "game over":
+    elif game_state == GameManager.state_game_over:
 
         screen.fill("black")
         
