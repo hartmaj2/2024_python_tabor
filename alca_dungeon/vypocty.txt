@@ -1,0 +1,18 @@
+7x mezera
+6x button
+1x kontajner 240
+
+900 - 7a - 6b - 240 = 0
+660 - 7a - 6b = 0
+
+b = 20x
+----------------------------------------------
+nevychazi to
+b = 20x5
+
+660 - 6x20x5 = 60
+
+60/7 = nevychazi
+
+vnitrni mezery 8
+vnejsi 10
