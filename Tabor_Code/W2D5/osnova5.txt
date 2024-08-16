@@ -1,0 +1,12 @@
+TOPIC: finishovani projektu, prezentace, testovani navzajem
+
+1. dokoncime to, co mame rozdelane - muzeme jeste pridat zvuk, finalni animace, ukladani highscore 
+
+2. po obede budeme prezentovat (dobre, nebo chteji drive/pozdeji?)
+
+3. naposilat hry i s grafikou - shared google folder, klidne je mohu dat do nasi github slozky
+    - kazdy si je pak muze vyzkouset u sebe
+
+4. pak si ty hry vsichni zahrajeme a muzeme si je navzajem ohodnotit
+
+5. shrneme vsechno, co se behem tabora delo - co se nejvice libilo? co se tolik nelibilo? nejake napady, jak to zlepsit?
